@@ -21,7 +21,7 @@ public final class MainActivity extends Activity{
 	private float alpha;
 	private DefaultMusicPlayer bgm;
 	private final JButton start_btn;
-	private final JButton option_btn;
+	// private final JButton option_btn;
 	private final JButton exit_btn;
 	private final MouseAdapter start_adapter;
 	private final MouseAdapter exit_adapter;
@@ -32,7 +32,7 @@ public final class MainActivity extends Activity{
 		bgImage = ImageResource.START_BACKGROUND.getImageIcon().getImage();
 		alpha = 0;
 		start_btn = new JButton(ImageResource.BLANK_BUTTON.getImageIcon(226, 68));
-		option_btn = new JButton(ImageResource.BLANK_BUTTON.getImageIcon(226, 68));
+		// option_btn = new JButton(ImageResource.BLANK_BUTTON.getImageIcon(226, 68));
 		exit_btn = new JButton(ImageResource.BLANK_BUTTON.getImageIcon(226, 68));
 		
 		start_adapter = new MouseAdapter() {

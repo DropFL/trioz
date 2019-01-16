@@ -71,6 +71,7 @@ public class RenderingHintInitializer {
 				
 				hints.put(key, value);
 			}
+			reader.close();
 			
 		} catch (Exception e) {
 			

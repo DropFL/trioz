@@ -1,16 +1,12 @@
 package com.dropfl;
 
 import com.dropfl.activity.*;
-import res.FontResource;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.awt.image.BufferedImage;
 import java.awt.image.VolatileImage;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 
 public class GameFrame extends JFrame {
 	

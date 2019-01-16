@@ -21,7 +21,6 @@ public class EventManager {
 	
 	public EventManager (Engine engine, ScreenEffectIterator effects) {
 		double beat = 2;
-		final Ghost ghost = new Ghost(300, 600, 32, 32);
 
 		events = new ArrayList<>();
 		active = new ArrayList<>();
@@ -89,7 +88,7 @@ public class EventManager {
 			@Override
 			public Double[] apply(Integer integer) {
 				if(integer == 0)
-					initialize(toPlayerset(600.0, 00.0, engine));
+					initialize(toPlayerset(600.0, 0.0, engine));
 
 				Double[] vec = (Double[])getInit();
 				Double[] res = {600.0 + vec[0] * 8 * integer, 0.0 + vec[1] * 8 * integer, vec[2]};
@@ -140,7 +139,7 @@ public class EventManager {
 			@Override
 			public Double[] apply(Integer integer) {
 				if(integer == 0)
-					initialize(toPlayerset(600.0, 00.0, engine));
+					initialize(toPlayerset(600.0, 0.0, engine));
 
 				Double[] vec = (Double[])getInit();
 				Double[] res = {600.0 + vec[0] * 8 * integer, 0.0 + vec[1] * 8 * integer, vec[2]};

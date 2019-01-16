@@ -19,14 +19,13 @@ public enum SoundResource {
 	private File file;
 	private int length;
 	private float msPerFrame;
-	private int frames;
 	
 	SoundResource (String name) {
 		file = new File(getClass().getResource("sounds/" + name).getPath());
 		
 		try {
 			FileInputStream fis = new FileInputStream(file);
-			Bitstream bitstream = new Bitstream(new FileInputStream(file));
+			Bitstream bitstream = new Bitstream(fis);
 			Header h = bitstream.readFrame();
 			
 			length = (int)h.total_ms((int)fis.getChannel().size());

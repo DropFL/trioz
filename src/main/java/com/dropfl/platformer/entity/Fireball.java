@@ -5,8 +5,6 @@ import res.ImageResource;
 
 import java.awt.*;
 
-import static java.lang.Math.abs;
-
 public class Fireball extends PlayerInteractive{
 
     public Fireball (int x, int y, int width, int height) {

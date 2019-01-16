@@ -32,6 +32,8 @@ public final class KeyStatus {
 					KeyStroke.getKeyStroke(key.getKeyCode(), 0), key.toString() + " pressed");
 			
 			component.getActionMap().put(key.toString() + " pressed", new AbstractAction() {
+				static final long serialVersionUID = -1;
+
 				@Override
 				public void actionPerformed (ActionEvent e) {
 					if (status.get(key) == 0) status.put(key, 2);
@@ -42,6 +44,8 @@ public final class KeyStatus {
 					KeyStroke.getKeyStroke(key.getKeyCode(), 0, true), key.toString() + " released");
 			
 			component.getActionMap().put(key.toString() + " released", new AbstractAction() {
+				static final long serialVersionUID = -1;
+
 				@Override
 				public void actionPerformed (ActionEvent e) {
 					status.put(key, 0);
