@@ -15,8 +15,8 @@ public class ImageComponent implements IDrawable {
 		AffineTransform t = new AffineTransform();
 
 		t.translate(x, y);
-		t.rotate(rotation * Math.PI / 180);
-		
+		t.rotate(Math.toRadians(rotation));
+
 		g.drawImage(image, t, null);
 	}
 }

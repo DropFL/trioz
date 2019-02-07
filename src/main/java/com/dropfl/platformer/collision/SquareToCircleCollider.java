@@ -1,31 +1,42 @@
 package com.dropfl.platformer.collision;
 
-import static java.lang.Math.sqrt;
+import com.dropfl.util.Pair;
 
 public class SquareToCircleCollider extends Collider {
-	double chkX, chkY;
-	@Override
-	public boolean isCollided (Shape player, Shape s) {
-		if (getCenterX(s) < getCenterX(player) - getLengthX(s)/2.0f)
-			chkX = getCenterX(player) - getLengthX(s)/2.0f;
-		else if ( getCenterX(s) > getCenterX(player) + getLengthX(s)/2.0f )
-			chkX = getCenterX(player) + getLengthX(s)/2.0f;
-		else
-			chkX =  getCenterX(s) ;
+    @Override
+    public boolean isCollided (BoundingBox square, BoundingBox circle) {
+        if (square.getRotation() != 0)
+            throw new IllegalArgumentException("Square should not be rotated.");
+        
+        Pair<Double> size   = circle.getSize(),
+                     origin = circle.getOrigin();
+        
+        if (size.x().compareTo(size.y()) != 0)
+            throw new IllegalArgumentException("Circle should have square-shaped bounding box.");
+        
+        double radius  = size.x() / 2,
+               rad     = Math.toRadians(circle.getRotation()) + Math.PI / 4,
+               centerX = origin.x() + radius * Math.cos(rad) * Math.sqrt(2),
+               centerY = origin.y() + radius * Math.sin(rad) * Math.sqrt(2);
+        
+        double diffX, diffY;
+        origin = square.getOrigin();
+        size = square.getSize();
+        
+        if (centerX < origin.x())
+            diffX = origin.x() - centerX;
+        else if (centerX > origin.x() + size.x())
+            diffX = centerX - origin.x() - size.x();
+        else
+            diffX = 0;
 
-		if (getCenterY(s) < getCenterY(player) - getLengthY(s)/2.0f)
-			chkY = getCenterY(player) - getLengthY(s)/2.0f;
-		else if ( getCenterY(s) > getCenterY(player) + getLengthY(s)/2.0f )
-			chkY = getCenterY(player) + getLengthY(s)/2.0f;
-		else
-			chkY =  getCenterY(s);
-		if(sqrt((chkY - getCenterY(s))*(chkY - getCenterY(s)) + (chkX - getCenterX(s))*(chkX - getCenterX(s))) < getLengthX(s)/2.0f) return true;
-		return false;
-	}
-
-	double getCenterX(Shape s){ return (s.getLeftX() + s.getRightX()) / 2; }
-	double getLengthX(Shape s){ return (s.getRightX() - s.getLeftX());}
-	double getCenterY(Shape s){ return (s.getTopY() + s.getBottomY()) / 2; }
-	double getLengthY(Shape s){ return (s.getBottomY() - s.getTopY());}
-
+        if (centerY < origin.y())
+            diffY = origin.y() - centerY;
+        else if (centerY > origin.y() + size.y())
+            diffY = centerY - origin.y() - size.y();
+        else
+            diffY = 0;
+        
+        return diffY * diffY + diffX * diffX <= radius * radius;
+    }
 }

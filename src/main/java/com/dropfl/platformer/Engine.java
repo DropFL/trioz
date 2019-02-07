@@ -4,6 +4,8 @@ import com.dropfl.component.IDrawable;
 import com.dropfl.key.Key;
 import com.dropfl.key.KeyStatus;
 import com.dropfl.platformer.entity.*;
+import com.dropfl.util.Pair;
+
 import res.MapResource;
 
 import java.awt.*;
@@ -45,18 +47,17 @@ public final class Engine implements IDrawable {
 	public void setInputAvailable (boolean inputAvailable) {
 		this.inputAvailable = inputAvailable;
 	}
-	
-	public double getPlayerLeftX () {
-		return player.getLeftX();
+	public Pair<Double> getPlayerOrigin () {
+		return player.getOrigin();
 	}
-	public double getPlayerRightX () {
-		return player.getRightX();
+	public Pair<Double> getPlayerSize() {
+		return player.getSize();
 	}
-	public double getPlayerTopY () {
-		return player.getTopY();
+	public Pair<Double> getPlayerBottomRight() {
+		return player.getBottomRight();
 	}
-	public double getPlayerBottomY () {
-		return player.getBottomY();
+	public Pair<Double> getPlayerCenter() {
+		return player.getCenter();
 	}
 	public boolean isInputAvailable () {
 		return inputAvailable;

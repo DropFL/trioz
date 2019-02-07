@@ -4,6 +4,8 @@ import com.dropfl.Main;
 import com.dropfl.effect.*;
 import com.dropfl.platformer.Engine;
 import com.dropfl.platformer.entity.*;
+import com.dropfl.util.Pair;
+
 import res.FontResource;
 import res.ImageResource;
 
@@ -613,9 +615,9 @@ public class EventManager {
 		
 		addEvent(new ScreenEffectEvent(getTickByBeat(4), 1796, (Integer integer) -> {
 			double scale = (integer < 1682) ? (1 + integer / 16820.) : 1.1;
+			Pair<Double> center = engine.getPlayerCenter();
 			Double[] res = {scale, scale, (integer < 895) ? 0. : (integer >= 1682) ? 3. : ((integer - 895.) / 788 * 3),
-					(engine.getPlayerLeftX() + engine.getPlayerRightX()) / 2,
-					(engine.getPlayerTopY() + engine.getPlayerBottomY()) / 2};
+					        center.first(), center.second()};
 			return res;
 		}, effects, new ScaleRotateEffect(1, 1, 0), ScreenEffectIterator.AT_LAST));
 		
@@ -921,17 +923,9 @@ public class EventManager {
 		return Math.atan2(y, x) * 180 / Math.PI - 90;
 	}
 
-	private Double[] toPlayer(Double startX, Double startY, Engine engine, Integer integer){
-		Double pcentx = (engine.getPlayerRightX() + engine.getPlayerLeftX()) / 2.0f;
-		Double pcenty = (engine.getPlayerBottomY() + engine.getPlayerTopY()) / 2.0f;
-		Double vlen = Math.sqrt((pcentx - startX)*(pcentx - startX) + (pcenty - startY)*(pcenty - startY));
-		Double[] res = {startX + (pcentx - startX) / vlen * 3 * integer, startY + (pcenty - startY) / vlen * 3 * integer, getRadian((pcentx - startX), (pcenty - startY))};
-		return res;
-	}
-
 	private Double[] toPlayerset(Double startX, Double startY, Engine engine){
-		Double pcentx = (engine.getPlayerRightX() + engine.getPlayerLeftX()) / 2.0f;
-		Double pcenty = (engine.getPlayerBottomY() + engine.getPlayerTopY()) / 2.0f;
+		Pair<Double> center = engine.getPlayerCenter();
+		Double pcentx = center.first(), pcenty = center.second();
 		Double vlen = Math.sqrt((pcentx - startX)*(pcentx - startX) + (pcenty - startY)*(pcenty - startY));
 		Double[] res = {(pcentx - startX) / vlen, (pcenty - startY) / vlen, getRadian((pcentx - startX), (pcenty - startY))};
 		return res;

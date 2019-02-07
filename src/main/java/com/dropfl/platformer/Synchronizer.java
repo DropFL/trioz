@@ -19,7 +19,8 @@ public class Synchronizer {
 		this.engine = engine;
 		this.player = player;
 		this.effects = effects;
-		this.eventManager = new EventManager(engine, effects);
+
+		eventManager = new EventManager(engine, effects);
 		ticks = 0;
 	}
 	
@@ -35,7 +36,7 @@ public class Synchronizer {
 		
 		if(KeyStatus.isKeyJustPressed(Key.DOWN)) {
 			KeyStatus.setKeyProcessed(Key.DOWN);
-			System.out.println(ticks);
+			// something
 		}
 	}
 	

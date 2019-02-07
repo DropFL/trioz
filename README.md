@@ -57,21 +57,21 @@ void render (java.awt.Graphics2D);
 이 프로젝트에서 렌더링을 컴포지트 패턴과 유사한 형태로 구현했는데, `IDrawable`은 여기서 컴포넌트의 역할을 한다.
 `ImageComponent`는 자체적인 이미지를 갖고있는 컴포넌트이며, `IDrawable`을 구현하였다. 좌표(`x`, `y`)와 회전 각도(`rotation`)에 따라 갖고 있는 이미지(`image`)를 그리는 `render` 메서드가 구현되어 있다.
 
-### 2.4 Shape, Collider
+### 2.4 BoundingBox, Collider
 
 이 게임엔진에서 충돌판정 알고리즘을 결정할 때 스트래티지 패턴을 사용하며, 이에 쓰이는 객체가 `Collider`이다.
 
-`Shape`는 플랫포머 엔진 내 도형의 Bounding Box에 대한 데이터를 가져올 수 있는 메서드가 정의된 인터페이스이고, `Collider`는 이 메서드를 이용해 두 `Shape`의 충돌을 판별하는 추상 클래스이다. 이 게임에 쓰이는 엔티티들은 모두 사각형 또는 원이기에 Bounding Box를 저장하는 것으로 각 도형을 충분히 표현할 수 있다. 이들을 이용해 `Collider`에서 적절한 알고리즘으로 충돌을 판정하는 메서드는 다음과 같다.
+`BoundingBox`는 플랫포머 엔진 내 도형의 Bounding Box에 대한 데이터를 가져올 수 있는 메서드가 정의된 인터페이스이고, `Collider`는 이 메서드를 이용해 두 `BoundingBox`의 충돌을 판별하는 추상 클래스이다. 이 게임에 쓰이는 엔티티들은 모두 사각형 또는 원이기에 Bounding Box를 저장하는 것으로 각 도형을 충분히 표현할 수 있다. 이들을 이용해 `Collider`에서 적절한 알고리즘으로 충돌을 판정하는 메서드는 다음과 같다.
 
 ```JAVA
-boolean isCollided (com.dropfl.platformer.collision.Shape, com.dropfl.platformer.collision.Shape);
+boolean isCollided (com.dropfl.platformer.collision.BoundingBox, com.dropfl.platformer.collision.BoundingBox);
 ```
 
 현재 고려하고 있는 충돌판정 알고리즘은 사각형-원 충돌 알고리즘, AABB, OBB로 크게 3가지가 있으며, 각각이 구현된 `SquaretoCircleCollider`, `AABBCollider`, `OBBCollider`가 정의되어있다.
 
 ### 2.5 Entity, PlayerInteractive
 
-`Entity`는 말 그대로 엔티티로, `ImageComponent`를 상속하며 `Shape`를 구현한 추상 클래스이다. `Shape`에 정의된 메서드들의 구현이 담겨있으며, `Player`가 이를 상속한다. `PlayerInteractive`는 `Player`와 상호작용할 수 있는 엔티티로, `Entity`를 상속하며 다음의 두 메서드가 추가로 정의되어 있다.
+`Entity`는 말 그대로 엔티티로, `ImageComponent`를 상속하며 `BoundingBox`를 구현한 추상 클래스이다. `BoundingBox`에 정의된 메서드들의 구현이 담겨있으며, `Player`가 이를 상속한다. `PlayerInteractive`는 `Player`와 상호작용할 수 있는 엔티티로, `Entity`를 상속하며 다음의 두 메서드가 추가로 정의되어 있다.
 
 ```JAVA
 boolean isCollided (com.dropfl.platformer.entity.Player);

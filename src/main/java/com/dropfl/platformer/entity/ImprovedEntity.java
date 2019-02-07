@@ -4,10 +4,11 @@ import com.dropfl.component.ImageComponent;
 import com.dropfl.platformer.collision.BoundingBox;
 import com.dropfl.util.Pair;
 
-public abstract class Entity extends ImageComponent implements BoundingBox {
+public class ImprovedEntity extends ImageComponent implements BoundingBox {
 	
-	protected double width;
-	protected double height;
+	// private boolean isEnemy;
+	private double width;
+	private double height;
 	
 	@Override
 	public double getRotation () {

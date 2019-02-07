@@ -1,12 +1,14 @@
 package com.dropfl.platformer.entity;
 
 import com.dropfl.Main;
+import com.dropfl.platformer.collision.AxisAlignedBoundingBox;
+
 import res.ImageResource;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 
-public final class Player extends Entity {
+public final class Player extends Entity implements AxisAlignedBoundingBox {
 	
 	private boolean enabled;
 	private int jumped;
@@ -52,9 +54,6 @@ public final class Player extends Entity {
 	// Getters
 	public int		getHp () {
 		return hp;
-	}
-	public int		getSize () {
-		return size;
 	}
 	public int		getShieldTime () {
 		return shieldTime;
