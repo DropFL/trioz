@@ -3,91 +3,79 @@ package com.dropfl.platformer.collision;
 import java.util.ArrayList;
 
 import com.dropfl.util.Pair;
+import com.dropfl.util.Point;
 
 public class OBBCollider extends Collider {
     
     @Override
     public boolean isCollided (BoundingBox box1, BoundingBox box2) {
-        double rad1 = Math.toRadians(box1.getRotation()),
-               rad2 = Math.toRadians(box2.getRotation());
-        Pair<Double> origin, size, range_x, range_y;
+        double rad1 = box1.getRotation(),
+               rad2 = box2.getRotation();
+               
+        Point origin, end;
+        Pair<Double> range_x, range_y;
         Pair<Pair<Double>> range;
         
         // test box2 relative to box1
-        origin = rotate(box1.getOrigin(), -rad1);
-        size = box1.getSize();
-        range = projRange(box2, rad1);
-        range_x = range.x();
-        range_y = range.y();
+        origin  = box1.getOrigin().rotate(-rad1);
+        end     = origin.clone().add(box1.getSize());
+        range   = projRange(box2, rad1);
+        range_x = range.first();
+        range_y = range.second();
 
-        if ( origin.x()            > range_x.second() ||
-             origin.x() + size.x() < range_x.first()  ||
-             origin.y()            > range_y.second() ||
-             origin.y() + size.y() < range_y.first()     ) return false;
+        if ( origin.x() > range_x.second() ||
+             end.x()    < range_x.first()  ||
+             origin.y() > range_y.second() ||
+             end.y()    < range_y.first()     ) return false;
         
         // test box1 relative to box2
-        origin = rotate(box2.getOrigin(), -rad2);
-        size = box2.getSize();
-        range = projRange(box1, rad2);
-        range_x = range.x();
-        range_y = range.y();
+        origin  = box2.getOrigin().rotate(-rad2);
+        end     = origin.clone().add(box2.getSize());
+        range   = projRange(box1, rad2);
+        range_x = range.first();
+        range_y = range.second();
 
-        if ( origin.x() > range_x.second()           ||
-             origin.x() + size.x() < range_x.first() ||
-             origin.y() > range_y.second()           ||
-             origin.y() + size.y() < range_y.first()    ) return false;
+        if ( origin.x() > range_x.second() ||
+             end.x()    < range_x.first()  ||
+             origin.y() > range_y.second() ||
+             end.y()    < range_y.first()     ) return false;
 
         return true;
     }
 
     /**
+     * calculates range of projection on given line and its normal.
      * 
      * @param box target {@code BoundngBox} to apply projection.
-     * @param rad radians of the line passes the origin point (0, 0). {@code box} will be projected upon this line and its normal line (which also passes the origin).
-     * @return ranges of projection onto each line; first is the original, second is its normal.
+     * @param rad radians of the line passes the origin point (0, 0). (normal also passes the origin.)
+     * @return ranges of projection on each line; first is the original, second is its normal.
      */
     private Pair<Pair<Double>> projRange (BoundingBox box, double rad) {
-        double boxRad = Math.toRadians(box.getRotation());
+        Pair<Double> size = box.getSize();
+        Point origin = box.getOrigin(),
+              w      = (new Point(size.first(),  0)).rotate(box.getRotation()),
+              h      = (new Point(0, size.second())).rotate(box.getRotation());
 
-        Pair<Double> size = box.getSize(), origin = box.getOrigin(),
-                     w = rotate(new Pair<Double>(size.x(), 0.), boxRad),
-                     h = rotate(new Pair<Double>(0., size.y()), boxRad);
-        ArrayList<Pair<Double>> points = new ArrayList<>();
+        ArrayList<Point> points = new ArrayList<>();
 
-        points.add(origin);
-        points.add(new Pair<Double>(origin.x() + w.x()        , origin.y() + w.y())        );
-        points.add(new Pair<Double>(origin.x()         + h.x(), origin.y()         + h.y()));
-        points.add(new Pair<Double>(origin.x() + w.x() + h.x(), origin.y() + w.y() + h.y()));
+        points.add(origin.clone().add(w));
+        points.add(origin.clone().add(h));
+        points.add(origin.clone().add(w).add(h));
 
-        for (Pair<Double> point : points) rotate(point, -rad);
+        origin.rotate(-rad);
+        for (Point point : points) point.rotate(-rad);
 
-        Pair<Double> result_x = new Pair<>(points.get(0).x(), points.get(0).x()),
-                     result_y = new Pair<>(points.get(0).y(), points.get(0).y());
+        Pair<Double> result_x = new Pair<>(origin.x(), origin.x()),
+                     result_y = new Pair<>(origin.y(), origin.y());
 
-        for (Pair<Double> point : points) {
+        for (Point point : points) {
             if (result_x.first()  > point.x()) result_x.first(point.x());
-            if (result_x.second() < point.x()) result_x.second(point.x());
+            else if (result_x.second() < point.x()) result_x.second(point.x());
+            
             if (result_y.first()  > point.y()) result_y.first(point.y());
-            if (result_y.second() < point.y()) result_y.second(point.y());
+            else if (result_y.second() < point.y()) result_y.second(point.y());
         }
 
         return new Pair<Pair<Double>>(result_x, result_y);
-    }
-
-    /**
-     * rotates a vector in given radian.
-     * @param p target vector represented in {@code Pair<Double>}.
-     * @param rad radians to rotate {@code p}.
-     * @return rotated vector, which is same to {@code p}.
-     */
-    private Pair<Double> rotate (Pair<Double> p, double rad) {
-        double sin = Math.sin(rad), cos = Math.cos(rad),
-               newX = p.x() * cos - p.y() * sin,
-               newY = p.x() * sin + p.y() * cos;
-        
-        p.x(newX);
-        p.y(newY);
-
-        return p;
     }
 }

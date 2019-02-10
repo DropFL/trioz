@@ -2,7 +2,7 @@ package com.dropfl.platformer.entity;
 
 import com.dropfl.platformer.collision.AABBCollider;
 import com.dropfl.platformer.collision.AxisAlignedBoundingBox;
-import com.dropfl.util.Pair;
+import com.dropfl.util.Point;
 
 import res.ImageResource;
 
@@ -22,11 +22,13 @@ public class Block extends PlayerInteractive implements AxisAlignedBoundingBox {
 
     @Override
     public boolean interact (Player p) {
-        double spX = p.getSpeedX(), spY = p.getSpeedY();
-        Pair<Double> tl  = p.getOrigin(),
-                     br = p.getBottomRight();
-        double left = tl.first(), right = br.first(),
-               top = tl.second(), bottom = br.second();
+        double spX = p.getSpeedX(),
+               spY = p.getSpeedY();
+        Point  tl  = p.getOrigin(),
+               br  = p.getBottomRight();
+        
+        double left = tl.x(), right  = br.x(),
+               top  = tl.y(), bottom = br.y();
         
         // If the player is moved only vertically or horizontal area of this block covers the player's one,
         // it must be top-to-bottom collision.

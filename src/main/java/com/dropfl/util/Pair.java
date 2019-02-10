@@ -1,7 +1,9 @@
 package com.dropfl.util;
 
-public class Pair <T> {
-    private T first, second;
+public class Pair<T> {
+
+    private T first;
+    private T second;
 
     /**
      * initializes two factors to {@code null}.
@@ -11,34 +13,47 @@ public class Pair <T> {
     }
 
     /**
-     * @param p target pair to copy. this constructor uses shallow copy.
+     * creates a copy from other pair
+     * <strong>WARNING</strong>: this constructor uses shallow copy. It may cause some unexpected behavior, so be careful on use.
+     * @param p target pair to copy.
      */
     public Pair (Pair<T> p) {
         this(p.first, p.second);
     }
 
     /**
-     * 
-     * @param first     first factor of this pair
-     * @param second    second factor of this pair
+     * @param first first factor of this pair
+     * @param second second factor of this pair
      */
-    public Pair (T first, T second) {
+    public Pair(T first, T second) {
         this.first = first;
         this.second = second;
     }
 
-    public T first () { return first; }
-    public T second () { return second; }
+    /**
+     * @return the first factor of this pair
+     */
+    public T first() { return first; }
 
-    public void first (T value) { first = value; }
-    public void second (T value) { second = value; }
+    /**
+     * @return the second factor of this pair
+     */
+    public T second() { return second; }
 
-    // for readability
-    public T x () { return first; } 
-    public T y () { return second; }
     
-    public void x (T value) { first = value; }
-    public void y (T value) { second = value; }
+    /**
+     * changes the first factor of this pair
+     * <strong>WARNING</strong>: {@code Pair} has object factors; not primitive data. It may cause some unexpected behavior, so be careful on use.
+     * @param value object to set to the first factor
+     */
+    public void first(T value) { first = value; }
+
+    /**
+     * changes the second factor of this pair
+     * <strong>WARNING</strong>: {@code Pair} has object factors; not primitive data. It may cause some unexpected behavior, so be careful on use.
+     * @param value object to set to the second factor
+     */
+    public void second(T value) { second = value; }
 
     @Override
     public String toString() {

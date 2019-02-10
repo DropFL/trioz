@@ -13,6 +13,6 @@ interface entity {
 }
 
 interface Motion {
-    prerequisite?: String; // pre-compiled part of JS code, like user-defined functions
-    formula: String;       // actual JS code that returns a double
+    prerequisite?: string[];    // pre-compiled part of formula, like user-defined functions
+    formula: string;            // actual formula that returns a number
 }

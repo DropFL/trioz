@@ -1,4 +1,4 @@
-package com.dropfl.platformer.entity;
+package com.dropfl.motion;
 
 public enum MotionFactor {
     X           ("x"),

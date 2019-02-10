@@ -1,4 +1,4 @@
-package com.dropfl.platformer.entity;
+package com.dropfl.motion;
 
 import javax.script.Bindings;
 import javax.script.SimpleBindings;

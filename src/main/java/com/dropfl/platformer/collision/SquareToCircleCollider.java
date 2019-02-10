@@ -1,6 +1,7 @@
 package com.dropfl.platformer.collision;
 
 import com.dropfl.util.Pair;
+import com.dropfl.util.Point;
 
 public class SquareToCircleCollider extends Collider {
     @Override
@@ -8,35 +9,30 @@ public class SquareToCircleCollider extends Collider {
         if (square.getRotation() != 0)
             throw new IllegalArgumentException("Square should not be rotated.");
         
-        Pair<Double> size   = circle.getSize(),
-                     origin = circle.getOrigin();
+        Pair<Double> size = circle.getSize();
         
-        if (size.x().compareTo(size.y()) != 0)
+        if (size.first().compareTo(size.second()) != 0)
             throw new IllegalArgumentException("Circle should have square-shaped bounding box.");
         
-        double radius  = size.x() / 2,
-               rad     = Math.toRadians(circle.getRotation()) + Math.PI / 4,
-               centerX = origin.x() + radius * Math.cos(rad) * Math.sqrt(2),
-               centerY = origin.y() + radius * Math.sin(rad) * Math.sqrt(2);
         
-        double diffX, diffY;
-        origin = square.getOrigin();
-        size = square.getSize();
+        double radius = size.first() / 2;
         
-        if (centerX < origin.x())
-            diffX = origin.x() - centerX;
-        else if (centerX > origin.x() + size.x())
-            diffX = centerX - origin.x() - size.x();
-        else
-            diffX = 0;
+        Point center = circle.getOrigin().add( (new Point(radius, radius)).rotate(circle.getRotation()) );
+        
+        Point diff = new Point(),
+              origin = square.getOrigin(),
+              end = origin.clone().add(square.getSize());
+        
+        if (center.x() < origin.x())
+            diff.x(origin.x() - center.x());
+        else if (center.x() > end.x())
+            diff.x(center.x() - end.x());
 
-        if (centerY < origin.y())
-            diffY = origin.y() - centerY;
-        else if (centerY > origin.y() + size.y())
-            diffY = centerY - origin.y() - size.y();
-        else
-            diffY = 0;
+        if (center.y() < origin.y())
+            diff.y(origin.y() - center.y());
+        else if (center.y() > end.y())
+            diff.y(center.y() - end.y());
         
-        return diffY * diffY + diffX * diffX <= radius * radius;
+        return diff.length() <= radius;
     }
 }
