@@ -15,6 +15,6 @@ public class GravityEvent extends TickEvent {
     
     @Override
     public void process (Double[] values) {
-        engine.setGravity(values[0]);
+        engine.gravity(values[0]);
     }
 }

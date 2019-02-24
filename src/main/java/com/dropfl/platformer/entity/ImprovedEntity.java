@@ -5,6 +5,13 @@ import com.dropfl.platformer.collision.BoundingBox;
 import com.dropfl.util.Pair;
 import com.dropfl.util.Point;
 
+/**
+ * <p><i>This class is incomplete; following description is the goal.</i></p>
+ * 
+ * {@code ImprovedEntity} is an improved version of {@code Entity} that can be
+ * instantiated by {@code EntityFactory}. The factory gathers resources based on
+ * entity-description file (refer {@code doc/entity.ts}) and generates an instance.
+ */
 public class ImprovedEntity extends ImageComponent implements BoundingBox {
     
     // private boolean isEnemy;

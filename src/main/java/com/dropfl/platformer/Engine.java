@@ -7,8 +7,6 @@ import com.dropfl.platformer.entity.*;
 import com.dropfl.util.Pair;
 import com.dropfl.util.Point;
 
-import res.MapResource;
-
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
@@ -24,40 +22,33 @@ public final class Engine implements IDrawable {
     private ArrayList<Block> blocks;
     private ArrayList<PlayerInteractive> entities;
     private ArrayList<PlayerInteractive> removeEntities;
-
-    public Engine (MapResource mapResource) {
-        blocks = new ArrayList<>();
-        entities = new ArrayList<>();
-        removeEntities = new ArrayList<>();
-        player = new Player();
-    }
     
-    public double getGravity () {
+    public double gravity () {
         return gravity;
     }
-    public double getSpeed () {
+    public double speed () {
         return speed;
     }
     
-    public void setGravity (double gravity) {
+    public void gravity (double gravity) {
         this.gravity = gravity;
     }
-    public void setSpeed (double speed) {
+    public void speed (double speed) {
         this.speed = speed;
     }
     public void setInputAvailable (boolean inputAvailable) {
         this.inputAvailable = inputAvailable;
     }
-    public Point getPlayerOrigin () {
+    public Point playerOrigin () {
         return player.getOrigin();
     }
-    public Pair<Double> getPlayerSize() {
+    public Pair<Double> playerSize() {
         return player.getSize();
     }
-    public Point getPlayerBottomRight() {
+    public Point playerBottomRight() {
         return player.getBottomRight();
     }
-    public Point getPlayerCenter() {
+    public Point playerCenter() {
         return player.getCenter();
     }
     public boolean isInputAvailable () {
@@ -76,7 +67,10 @@ public final class Engine implements IDrawable {
     }
 
     public Engine () {
-        this(MapResource.TestMap);
+        blocks = new ArrayList<>();
+        entities = new ArrayList<>();
+        removeEntities = new ArrayList<>();
+        player = new Player();
     }
     
     public void tick () {

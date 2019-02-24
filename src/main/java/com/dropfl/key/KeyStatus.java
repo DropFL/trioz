@@ -9,9 +9,7 @@ public final class KeyStatus {
     private static boolean isInitialized = false;
     private static HashMap<Key, Integer> status;
     
-    private KeyStatus () {
-        // none
-    }
+    private KeyStatus () {}
     
     public static void init () {
         if (isInitialized) throw new IllegalStateException("KeyStatus already initialized");

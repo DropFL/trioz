@@ -1,15 +1,15 @@
 package com.dropfl.key;
 
-import java.awt.event.KeyEvent;
+import static java.awt.event.KeyEvent.*;
 
 public enum Key {
-    LEFT(KeyEvent.VK_LEFT),
-    RIGHT(KeyEvent.VK_RIGHT),
-    UP(KeyEvent.VK_UP),
-    DOWN(KeyEvent.VK_DOWN),
-    SPACE(KeyEvent.VK_SPACE),
-    S(KeyEvent.VK_S),
-    ESCAPE(KeyEvent.VK_ESCAPE);
+    LEFT(VK_LEFT),
+    RIGHT(VK_RIGHT),
+    UP(VK_UP),
+    DOWN(VK_DOWN),
+    SPACE(VK_SPACE),
+    S(VK_S),
+    ESCAPE(VK_ESCAPE);
     
     
     private final int keyCode;

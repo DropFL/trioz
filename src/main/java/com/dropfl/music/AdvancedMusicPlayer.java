@@ -8,6 +8,10 @@ import javazoom.jl.player.advanced.PlaybackEvent;
 import javazoom.jl.player.advanced.PlaybackListener;
 import res.SoundResource;
 
+/**
+ * {@code AdvancedMusicPlayer} is a complex, pausable version of {@code MusicPlayer}.
+ * JLayer's {@code AdvancedPlayer} is used to implement this class.
+ */
 public class AdvancedMusicPlayer extends MusicPlayer{
     
     private static final int NOT_STARTED = 0;
@@ -37,40 +41,41 @@ public class AdvancedMusicPlayer extends MusicPlayer{
         this.listener = new PlaybackListener() {
             @Override
             public void playbackFinished (PlaybackEvent playbackEvent) {
-                int offset = (int)(pausedFrame * resource.getMsPerFrame());
-                pausedFrame = (int)((device.getPosition() + offset) / resource.getMsPerFrame());
-                super.playbackFinished(playbackEvent);
+                int offset = (int)(pausedFrame * resource.msPerFrame());
+                pausedFrame = (int)((device.getPosition() + offset) / resource.msPerFrame());
             }
         };
         
         this.onPlay = ()->{
             try {
                 do {
-                    player = getNewPlayer();
+                    player = createAdvancedPlayer();
                     player.play(Integer.MAX_VALUE);
                 } while (state == PLAYING && this.isLoop);
                 
-                if(state == PLAYING && playerListener != null) {
+                if(state == PLAYING) {
                     state = STOPPED;
-                    playerListener.onComplete();
+                    if (playerListener != null)
+                        playerListener.onComplete();
                 }
             } catch (JavaLayerException e) {
-                // do nothing
+                e.printStackTrace();
             }
         };
         this.onResume = ()->{
             try {
                 do {
-                    player = getNewPlayer();
+                    player = createAdvancedPlayer();
                     player.play(pausedFrame, Integer.MAX_VALUE);
                 } while (state == PLAYING && this.isLoop);
                 
-                if(state == PLAYING && playerListener != null) {
+                if(state == PLAYING) {
                     state = STOPPED;
-                    playerListener.onComplete();
+                    if (playerListener != null)
+                        playerListener.onComplete();
                 }
             } catch (JavaLayerException e) {
-                // do nothing
+                e.printStackTrace();
             }
         };
     }
@@ -80,8 +85,8 @@ public class AdvancedMusicPlayer extends MusicPlayer{
     }
     
     @Override
-    public int getTime () {
-        int offset = (int)(pausedFrame * resource.getMsPerFrame());
+    public int time () {
+        int offset = (int)(pausedFrame * resource.msPerFrame());
         if(device != null) return device.getPosition() + offset;
         else return offset;
     }
@@ -136,13 +141,13 @@ public class AdvancedMusicPlayer extends MusicPlayer{
         thread.start();
     }
     
-    private AdvancedPlayer getNewPlayer () {
+    private AdvancedPlayer createAdvancedPlayer () {
         try {
             this.device = FactoryRegistry.systemRegistry().createAudioDevice();
         } catch (JavaLayerException e) {
             e.printStackTrace();
         }
-        AdvancedPlayer player = resource.getAdvancedPlayer(device);
+        AdvancedPlayer player = resource.createAdvancedPlayer(device);
         player.setPlayBackListener(listener);
         return player;
     }

@@ -66,7 +66,7 @@ public final class MainActivity extends Activity{
         updateImage();
         graphics.setRenderingHints(Main.getRenderingHint());
         
-        int time = bgm.getTime();
+        int time = bgm.time();
         int curBeat = prevBeat;
         
         prevBeat = time % 1875;

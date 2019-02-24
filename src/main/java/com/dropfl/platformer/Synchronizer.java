@@ -25,7 +25,7 @@ public class Synchronizer {
     }
     
     public void update () {
-        while(ticks * 50 < player.getTime() * 3) {
+        while(ticks * 50 < player.time() * 3) {
             ticks ++;
             
             eventManager.update(ticks);

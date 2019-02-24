@@ -16,11 +16,11 @@ public class SpeedEvent extends TickEvent{
     @Override
     public void process (Double[] value) {
         if(value[0] < 0) throw new IllegalArgumentException("Scale of engine cannot be negative.");
-        engine.setSpeed(value[0]);
+        engine.speed(value[0]);
     }
     
     @Override
     public void finish () {
-        engine.setSpeed(1);
+        engine.speed(1);
     }
 }

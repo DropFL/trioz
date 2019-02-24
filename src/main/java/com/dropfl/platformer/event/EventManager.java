@@ -615,7 +615,7 @@ public class EventManager {
         
         addEvent(new ScreenEffectEvent(getTickByBeat(4), 1796, (Integer integer) -> {
             double scale = (integer < 1682) ? (1 + integer / 16820.) : 1.1;
-            Point center = engine.getPlayerCenter();
+            Point center = engine.playerCenter();
             Double[] res = {scale, scale, (integer < 895) ? 0. : (integer >= 1682) ? 3. : ((integer - 895.) / 788 * 3),
                             center.x(), center.y()};
             return res;
@@ -924,7 +924,7 @@ public class EventManager {
     }
 
     private Double[] toPlayerset(Double startX, Double startY, Engine engine){
-        Point center = engine.getPlayerCenter();
+        Point center = engine.playerCenter();
         Double pcentx = center.x(), pcenty = center.y();
         Double vlen = Math.sqrt((pcentx - startX)*(pcentx - startX) + (pcenty - startY)*(pcenty - startY));
         Double[] res = {(pcentx - startX) / vlen, (pcenty - startY) / vlen, getRadian((pcentx - startX), (pcenty - startY))};

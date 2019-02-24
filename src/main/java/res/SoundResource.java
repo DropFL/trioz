@@ -20,6 +20,11 @@ public enum SoundResource {
     private int length;
     private float msPerFrame;
     
+    /**
+     * initializes {@code SoundResource} with given file.
+     * 
+     * @param name name of a music file. The file must be located in {@code res/sounds}.
+     */
     SoundResource (String name) {
         file = new File(getClass().getResource("sounds/" + name).getPath());
         
@@ -36,8 +41,13 @@ public enum SoundResource {
             length = -1;
         }
     }
-    
-    public Player getPlayer () {
+
+    /**
+     * creates {@code Player} that plays this music.
+     * 
+     * @return created {@code Player} object.
+     */
+    public Player createPlayer () {
         try {
             return new Player(new BufferedInputStream(new FileInputStream(file)));
         } catch (Exception e) {
@@ -46,7 +56,13 @@ public enum SoundResource {
         
         return null;
     }
-    public AdvancedPlayer getAdvancedPlayer (AudioDevice device) {
+
+    /**
+     * creates {@code AdvancedPlayer} that plays this music to given {@code device}.
+     * 
+     * @return created {@code AdvancedPlayer} object.
+     */
+    public AdvancedPlayer createAdvancedPlayer (AudioDevice device) {
         try {
             return new AdvancedPlayer(new BufferedInputStream(new FileInputStream(file)), device);
         } catch (Exception e) {
@@ -55,11 +71,18 @@ public enum SoundResource {
         
         return null;
     }
-    
-    public int getLength () {
+
+    /**
+     * @return total length of this music, in milliseconds.
+     */
+    public int length () {
         return length;
     }
-    public float getMsPerFrame () {
+
+    /**
+     * @return milliseconds per frame of this music file.
+     */
+    public float msPerFrame () {
         return msPerFrame;
     }
 }

@@ -1,8 +1,11 @@
 package com.dropfl.util;
 
+/**
+ * {@code Point} object represents a 2D point or a 2D vector.
+ */
 public class Point {
 
-    private Pair<Double> pos;
+    private double x, y;
 
     /**
      * constructs a {@code Point} object represents the origin point.
@@ -15,7 +18,7 @@ public class Point {
      * @param x value of {@code x}.
      * @param y value of {@code y}.
      */
-    public Point (double x, double y) { pos = new Pair<Double>(x, y); }
+    public Point (double x, double y) { this.x = x; this.y = y; }
 
     /**
      * constructs a {@code Point} object from a x-y pair.
@@ -29,35 +32,35 @@ public class Point {
      * 
      * @param point {@code Point} object to copy.
      */
-    public Point (Point point) { this(point.x(), point.y()); }
+    public Point (Point point) { this(point.x, point.y); }
 
     /**
      * gets {@code x} value.
      * 
      * @return {@code x} value of this point.
      */
-    public double x () { return pos.first(); }
+    public double x () { return x; }
 
     /**
      * gets {@code y} value.
      * 
      * @return {@code y} value of this point.
      */
-    public double y () { return pos.second(); }
+    public double y () { return y; }
     
     /**
      * modifies {@code x} value.
      * 
      * @param value value for {@code x}.
      */
-    public void x (double value) { pos.first(value); }
+    public void x (double value) { this.x = value; }
 
     /**
      * modifies {@code y} value.
      * 
      * @param value value for {@code y}.
      */
-    public void y (double value) { pos.second(value); }
+    public void y (double value) { this.y = value; }
 
     /**
      * adds {@code x} and {@code y} values from {@code point}.
@@ -87,8 +90,8 @@ public class Point {
      * @return callee itself, after addition.
      */
     public Point add (double dx, double dy) {
-        x(x() + dx);
-        y(y() + dy);
+        x += dx;
+        y += dy;
 
         return this;
     }
@@ -121,8 +124,8 @@ public class Point {
      * @return callee itself, after subtraction.
      */
     public Point subtract (double dx, double dy) {
-        x(x() - dx);
-        y(y() - dy);
+        x -= dx;
+        y -= dy;
 
         return this;
     }
@@ -134,8 +137,8 @@ public class Point {
      * @return callee itself, after multiplication.
      */
     public Point multiply (double value) {
-        x(x() * value);
-        y(y() * value);
+        x *= value;
+        y *= value;
 
         return this;
     }
@@ -148,11 +151,11 @@ public class Point {
      */
     public Point rotate (double rad) {
         double sin = Math.sin(rad), cos = Math.cos(rad),
-               newX = x() * cos - y() * sin,
-               newY = x() * sin + y() * cos;
+               newX = x * cos - y * sin,
+               newY = x * sin + y * cos;
         
-        x(newX);
-        y(newY);
+        x = newX;
+        y = newY;
 
         return this;
     }
@@ -164,7 +167,7 @@ public class Point {
      * @return calculated dot product between callee and {@code point}.
      */
     public double dot (Point point) {
-        return x() * point.x() + y() * point.y();
+        return x * point.x + y * point.y;
     }
 
     /**
@@ -175,7 +178,7 @@ public class Point {
      * @return calculated cross product between callee and {@code point}.
      */
     public double cross (Point point) {
-        return x() * point.y() - y() * point.x();
+        return x * point.y - y * point.x;
     }
 
     /**
@@ -184,7 +187,7 @@ public class Point {
      * @return calculated distance.
      */
     public double length () {
-        return Math.sqrt(x() * x() + y() * y());
+        return Math.sqrt(x * x + y * y);
     }
 
     /**
@@ -217,6 +220,11 @@ public class Point {
      * @return {@code Pair} contains data of x-y pair of current point.
      */
     public Pair<Double> pair () {
-        return new Pair<>(x(), y());
+        return new Pair<>(x, y);
+    }
+
+    @Override
+    public String toString () {
+        return "(" + x + ", " + y + ")";
     }
 }

@@ -2,8 +2,7 @@ package com.dropfl.util;
 
 public class Pair<T> {
 
-    private T first;
-    private T second;
+    private T first, second;
 
     /**
      * initializes two factors to {@code null}.

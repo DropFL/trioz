@@ -30,11 +30,17 @@
         <version>1.0.1</version>
     </dependency>
     <!-- https://mvnrepository.com/artifact/org.mariuszgromada.math/MathParser.org-mXparser -->
-    <dependency>
+    <!-- <dependency>
         <groupId>org.mariuszgromada.math</groupId>
         <artifactId>MathParser.org-mXparser</artifactId>
         <version>4.3.3</version>
-    </dependency>
+    </dependency> -->
+    <!-- https://mvnrepository.com/artifact/org.luaj/luaj-jse -->
+    <!-- <dependency>
+        <groupId>org.luaj</groupId>
+        <artifactId>luaj-jse</artifactId>
+        <version>3.0.1</version>
+    </dependency> -->
   </dependencies>
 
   <build>

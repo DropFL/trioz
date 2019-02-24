@@ -1,19 +1,14 @@
 package com.dropfl.motion;
 
-import org.mariuszgromada.math.mxparser.Expression;
-
 public class Motion {
 
-    private Expression exp;
-
-    public Motion (String[] prerequisite, String formula) {
-        this.exp = new Expression(formula);
+    public Motion (String formula) {
     }
 
-    public double calculate (MotionBindings bind) {
+    public double calculate (MotionArgument bind) {
         double result = 0;
 
-        // TODO evaluate expression with bindings to calculate
+        // TODO evaluate expression with arguments to calculate
 
         return result;
     }

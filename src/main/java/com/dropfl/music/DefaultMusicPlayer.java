@@ -4,8 +4,12 @@ import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 import res.SoundResource;
 
+/**
+ * {@code DefaultMusicPlayer} is a simple, unpausable version of {@code MusicPlayer}.
+ * JLayer's {@code Player} is used to implement this class.
+ */
 public class DefaultMusicPlayer extends MusicPlayer {
-    
+
     private Player player;
     private boolean isPlaying;
     
@@ -16,7 +20,7 @@ public class DefaultMusicPlayer extends MusicPlayer {
         this.onPlay = ()->{
             try {
                 do {
-                    player = resource.getPlayer();
+                    player = resource.createPlayer();
                     isPlaying = true;
                     player.play();
                 } while (isPlaying && this.isLoop);
@@ -34,7 +38,7 @@ public class DefaultMusicPlayer extends MusicPlayer {
     }
     
     @Override
-    public int getTime () {
+    public int time () {
         if(isPlaying) return player.getPosition();
         else return 0;
     }

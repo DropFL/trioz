@@ -10,11 +10,7 @@
 게임에 포함된 리소스가 들어있는 패키지이다. 리소스의 종류(그림, 음악 등)에 따라 하위 디렉토리로 분류되어 있다. 이 패키지에는 리소스 외에도 `XResource` 의 이름을 갖는 Enumerator들이 있다. 이는 *X* 타입의 리소스 파일과 프로그램을 연결해주며 해당 리소스와 관련된 프로세스를 내부적으로 처리해주는 역할을 한다.
 예를 들어, `ImageResource`는 `res/images` 디렉토리 내의 각 이미지 파일과 일대일로 매칭된 객체들을 갖고 있으며, 각 파일로부터 `ImageIcon`을 가져오는 `getImageIcon()` 메서드를 갖고 있다.
 
-### 1.2 libs
-
-게임에 포함된 라이브러리 파일들이 들어있는 디렉토리이다. 현재는 `JLayer 1.0.1` 밖에 없으며, 현재까지 프로젝트의 진행을 보아 앞으로도 다른 라이브러리가 추가되지 않을 가능성이 높다.
-
-### 1.3 com.dropfl
+### 1.2 com.dropfl
 
 * `com.dropfl.activity` : `Activity`와 이를 상속한 클래스들이 있는 패키지.
 
@@ -22,15 +18,21 @@
 
 * `com.dropfl.effect` : 화면 이펙트와 관련된 클래스가 있는 패키지.
 
-* `com.dropfl.music` : 음악 재생과 관련된 클래스가 있는 패키지.
+* `com.dropfl.init` : 게임 초기화와 관련된 클래스가 있는 패키지.
 
 * `com.dropfl.key` : 키 입력과 관련된 소스들이 있는 패키지.
 
+* `com.dropfl.motion` : `Entity`의 움직임과 관련된 소스들이 있는 패키지.
+
+* `com.dropfl.music` : 음악 재생과 관련된 클래스가 있는 패키지.
+
 * `com.dropfl.platformer` : 게임의 플랫포머 엔진에 관련된 소스들이 있는 패키지.
 
-  * `com.dropfl.platformer.collision` : 플랫포머 엔진 내 충돌과 관련된 소스들이 있는 패키지.
-  * `com.dropfl.platformer.entity` : 플랫포머 엔진에 있는 엔티티들이 정의된 패키지.
+  * `com.dropfl.platformer.collision` : 충돌판정과 관련된 소스들이 있는 패키지.
+  * `com.dropfl.platformer.entity` : 엔티티(`Entity`)들이 정의된 패키지.
   * `com.dropfl.platformet.event` : 시간에 따라 발생하는 게임 내 이벤트가 정의된 패키지.
+
+* `com.dropfl.util` : 코딩에서의 편의를 위한 클래스가 있는 패키지.
 
 ***
 
@@ -44,7 +46,7 @@
 
 ### 2.2 Activity
 
-안드로이드의 액티비티 개념과 유사하다. 하나의 화면에 대해 일어나는 모든 작업들을 총괄하는 객체이다. `GameFrame`에서는 `activity` 객체를 치환하는 방식으로 화면의 변화를 구현할 예정이다. 다만 안드로이드에서 이 작업에 필요한 `Intent`의 필요성을 인지하고 있으나, 여기서 어떻게 구현할지는 아직 결정되지 않았다.
+안드로이드의 액티비티 개념과 유사하다. 하나의 화면에 대해 일어나는 모든 작업들을 총괄하는 객체이다. `GameFrame`에서는 `activity` 객체를 치환하는 방식으로 화면의 변화를 구현할 예정이다. 다만 안드로이드에서 `Intent`와 같은 객체의 필요성을 인지하고 있으나, 여기서 어떻게 구현할지는 아직 결정되지 않았다.
 
 ### 2.3 IDrawable, ImageComponent
 
@@ -54,7 +56,8 @@
 void render (java.awt.Graphics2D);
 ```
 
-이 프로젝트에서 렌더링을 컴포지트 패턴과 유사한 형태로 구현했는데, `IDrawable`은 여기서 컴포넌트의 역할을 한다.
+이 프로젝트에서 렌더링을 컴포지트 패턴으로 구현했고, `IDrawable`이 해당 컴포넌트이다.
+
 `ImageComponent`는 자체적인 이미지를 갖고있는 컴포넌트이며, `IDrawable`을 구현하였다. 좌표(`x`, `y`)와 회전 각도(`rotation`)에 따라 갖고 있는 이미지(`image`)를 그리는 `render` 메서드가 구현되어 있다.
 
 ### 2.4 BoundingBox, Collider
@@ -78,11 +81,17 @@ boolean isCollided (com.dropfl.platformer.entity.Player);
 boolean interact (com.dropfl.platformer.entity.Player);
 ```
 
-각각 플레이어와 접촉했는지 확인하는 메서드, 플레이어와 상호작용하는 메서드이다. `isCollided` 함수는 온전히 `Collider`에게 위임되어 있지만. `interact` 함수는 구현되어있지 않다. `interact` 메서드의 리턴값은 상호작용 후 해당 엔티티의 삭제가 필요한지를 `Engine`에게 알려주는 역할을 한다. (`true`면 삭제이다.) 이 때 제거용 `destroy` 메서드의 필요성을 검토하고 있지만 아직 확정되진 않았다.
+각각 플레이어와 접촉했는지 확인하는 메서드, 플레이어와 상호작용하는 메서드이다. `isCollided` 함수는 온전히 `Collider`에게 위임되어 있지만. `interact` 함수는 구현되어있지 않다. `interact` 메서드의 리턴값은 상호작용 후 해당 엔티티의 삭제가 필요한지를 `Engine`에게 알려주는 역할을 한다. (`true`면 삭제이다.) 이 때 제거용 `PlayerInteractive.destroy()` 메서드의 필요성을 검토하고 있지만 아직 확정되진 않았다.
+
+#### 2.5.1 ImprovedEntity, EntityFactory
+
+*아직 완성되지 않은 클래스로, 다음은 구현 목표를 설명한 것이다.*
+
+현재 `Entity`는 이 프로젝트에서 정의된 `Bullet`, `Fireball`, `Player` 등으로 국한되는데, `ImprovedEntity`는 이러한 한계를 극복하기 위해 고안되었다. 해당 엔티티는 `EntityFactory`로부터 생성될 수 있는데, 이 팩토리는 파일로부터 텍스쳐와 후술할 `Motion` 등 각종 리소스를 수집하여 `ImprovedEntity`의 인스턴스에 연결시킨다. 파일의 포맷은 JSON의 형태로, [entity.ts](https://github.com/DropFL/trioz/blob/master/doc/entity.ts)에 정의되어 있다.
 
 ### 2.6 Key, KeyStatus
 
-`KeyStatus`는 키 입력을 주관하는 클래스로, 아예 인스턴스화할 수 없게끔 되어있다. `KeyStatus.init()`으로 초기화를 진행하고 `KeyStatus.register(java.awt.Component)`로 해당 `Component`에 들어오는 입력을 받을 수 있다. 키 입력을 확인하는 메서드는 다음과 같다.
+`KeyStatus`는 키 입력을 주관하는, 인스턴스화할 수 없는 클래스이다. `KeyStatus.init()`으로 초기화를 진행하고 `KeyStatus.register(java.awt.Component)`로 해당 `Component`에 들어오는 입력을 받을 수 있다. 키 입력을 확인하는 메서드는 다음과 같다.
 
 ```JAVA
 boolean isKeyPressed (com.dropfl.key.Key);
@@ -101,6 +110,8 @@ void setKeyProcessed (com.dropfl.key.Key);
 
 ### 2.7 TickEvent
 
+**_구조를 크게 개편할 예정에 있음을 유의하여 읽어주길 바란다._**
+
 `TickEvent`는 게임 내 시간 단위인 `tick`에 따라 발생하는 게임 내 이벤트를 대표하는 클래스이다. `TickEvent`는 언제부터 (`since`) 얼마동안 (`duration`) 어떻게 (`formula`) 제어할 것인지 정의되어야 한다.
 
 `formula`는 `Integer -> Double[]`의 함수 (`Function<Integer, Double[]>`) 로 정의된다. 인자로 들어가는 `Integer`는 `since`로부터 흘러간 시간이며, `Double[]`은 해당 이벤트가 제어하는 대상에 대한 속성이 정의되어야 한다. 가령, `SpeedEvent`는 `Engine` 내에 있는 `speed` 변수로 설정할 값을 리턴한다.
@@ -110,6 +121,18 @@ void setKeyProcessed (com.dropfl.key.Key);
 ### 2.8 EventManager
 
 `EventManager`는 게임에 사용될 모든 `TickEvent`의 목록이 정의되고 그것을 제어하는 클래스이다. 현재는 `TickEvent`가 이 안에 하드코딩되어 있으나, 파일로 입력을 받게 되면 초기화할 때의 과부하 문제와 경직성을 해결할 수 있다.
+
+### 2.9 Motion
+
+*아직 완성되지 않은 클래스로, 다음은 구현 목표를 설명한 것이다.*
+
+`Entity`들은 `Player` 및 자신의 좌표, 시간의 흐름 등에 따라 다양한 움직임을 보일 수 있어야 한다. 그러한 인자들이 선언된 `MotionFactor`로부터 생성된 `MotionArgument`을 이용하여 어떤 속성의 현재 값을 계산해주는 클래스가 `Motion`이다.
+
+실제 구현은 다음과 같이 크게 두 가지의 옵션을 생각하고 있다. [mXparser](http://mathparser.org/) 또는 [LuaJ](http://www.luaj.org/luaj/3.0/README.html)를 이용해 식 또는 코드를 바탕으로 계산하는 방식으로 계획 중이다.
+
+* [mXparser](http://mathparser.org/)를 이용해 직접 `String`으로 적힌 식을 계산하는 방식. 이 경우 `Motion`을 정의하는 리소스 자체의 크기가 작고 계산의 정확도 등에서 이점을 갖는다.
+
+* [LuaJ](http://www.luaj.org/luaj/3.0/README.html)를 이용해 Lua로 코딩된 작은 프로그램을 실행시키는 방식. 이 경우 위의 mXparser에 비해 라이브러리의 크기가 작으며 컴파일된 바이너리로 성능의 향상을 생각할 수도 있고, 더 높은 자유도가 있다는 장점이 있다. 향후 기능 확장을 고려했을 때 압도적으로 유리하다.
 
 ***
 
@@ -127,13 +150,9 @@ void setKeyProcessed (com.dropfl.key.Key);
 
 ### 3.1 TODO
 
-1. 하드코딩된 `TickEvent`들을 파일로 옮겨야한다.
-2. `OptionActivity`, `SongSelectActivity` 등을 구현해야 한다.
-
-### 3.2 TODO COMPLETION
-
-1. 화면 전체에 걸친 효과 : `ScreenEffect.apply(VolatileImage)`를 통해 구현하였다.
-2. fps 문제 : 하드웨어 가속을 구현하였다.
-3. `Engine`과 `MusicPlayer`의 동기화 : `Synchronizer`를 통해 동기화를 구현하였다.
-4. 시간의 흐름에 따른 게임의 진행, 패턴 입력 : `TickEvent`로 구현하였다.
-5. `Activity` 간 전환 : `Activity.syncState(target)`으로 고안하였으나, 베타버전 기준으로는 사용되지 않고 있다.
+1. `ImageComponent`의 `x`, `y` 속성을 `Point`로 대체한다.
+2. `Motion`의 기능을 완성한다.
+3. `ImprovedEntity`와 `EntityFactory`를 코딩한다.
+4. 하드코딩된 `TickEvent`들을 파일로 옮긴다.
+5. 렌더링의 순서를 z-index와 같이 숫자로 수정할 필요가 있다.
+6. `OptionActivity`, `SongSelectActivity` 등을 구현한다.

@@ -29,7 +29,7 @@ public class PlatformerActivity extends Activity {
     private Synchronizer sync;
     
     private ImageOverlayEffect pauseEffect;
-    private ImageOverlayEffect gameoverEffect;
+    private ImageOverlayEffect gameOverEffect;
     
     private JButton resume;
     private JButton restart;
@@ -49,7 +49,7 @@ public class PlatformerActivity extends Activity {
         effects = new ScreenEffectIterator();
 
         pauseEffect = new ImageOverlayEffect(0, 0, ImageResource.PAUSE_OVERLAY.getImageIcon().getImage(), 0);
-        gameoverEffect = new ImageOverlayEffect(0, 0, ImageResource.GAMEOVER.getImageIcon().getImage(), 0);
+        gameOverEffect = new ImageOverlayEffect(0, 0, ImageResource.GAMEOVER.getImageIcon().getImage(), 0);
 
         resume = new JButton(ImageResource.RESUME_BUTTON.getImageIcon(160, 160));
         restart = new JButton(ImageResource.RESTART_BUTTON.getImageIcon(160, 160));
@@ -132,7 +132,7 @@ public class PlatformerActivity extends Activity {
         }
 
         if(engine.getPlayerHp() <= 0){
-            gameover();
+            gameOver();
         }
 
         updateImage();
@@ -148,9 +148,9 @@ public class PlatformerActivity extends Activity {
         
         // Post-renderer goes here
         graphics.setColor(Color.WHITE);
-        graphics.fillRect(0, 0, Main.SCREEN_WIDTH * bgm.getTime() / bgm.getLength(), 3);
+        graphics.fillRect(0, 0, Main.SCREEN_WIDTH * bgm.time() / bgm.length(), 3);
         graphics.setColor(Color.BLACK);
-        graphics.fillRect(0, 3, Main.SCREEN_WIDTH * bgm.getTime() / bgm.getLength(), 1);
+        graphics.fillRect(0, 3, Main.SCREEN_WIDTH * bgm.time() / bgm.length(), 1);
 
         effects.apply(image);
         
@@ -167,20 +167,20 @@ public class PlatformerActivity extends Activity {
         }
         
         pauseEffect.apply(image);
-        gameoverEffect.apply(image);
+        gameOverEffect.apply(image);
         
         graphics.dispose();
         
         return image;
     }
-    public void gameover(){
+    public void gameOver(){
         bgm.stop();
         paused = true;
 
         restart.setVisible(true);
         stop.setVisible(true);
 
-        gameoverEffect.setOpacity(1);
+        gameOverEffect.setOpacity(1);
     }
     private void pauseGame () {
         bgm.pause();
