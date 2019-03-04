@@ -1,10 +1,11 @@
 package com.dropfl.platformer.entity;
 
-import com.dropfl.platformer.collision.SquareToCircleCollider;
 import res.ImageResource;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+
+import static com.dropfl.platformer.collision.Collider.*;
 
 public class Ghost extends PlayerInteractive {
 
@@ -15,7 +16,7 @@ public class Ghost extends PlayerInteractive {
         this.y = y;
         this.width = width;
         this.height = height;
-        this.collider = new SquareToCircleCollider();
+        this.collider = CIRC_2_SQ;
         this.wing = ImageResource.GHOST_2.getImageIcon().getImage().getScaledInstance(3*(width - 5), 3*(height - 5),Image.SCALE_FAST);
         //this.image = ImageResource.GHOSTTMP.getImageIcon().getImage().getScaledInstance(width ,height,Image.SCALE_SMOOTH);
     }

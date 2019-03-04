@@ -1,11 +1,12 @@
 package com.dropfl.platformer.entity;
 
-import com.dropfl.platformer.collision.AABBCollider;
 import com.dropfl.util.Point;
 
 import res.ImageResource;
 
 import java.awt.*;
+
+import static com.dropfl.platformer.collision.Collider.*;
 
 public class Block extends PlayerInteractive {
     
@@ -15,7 +16,7 @@ public class Block extends PlayerInteractive {
         this.width = width;
         this.height = height;
         this.rotation = 0;
-        this.collider = new AABBCollider();
+        this.collider = AABB;
         this.image = ImageResource.BLOCK_1.getImageIcon().getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
     }
 

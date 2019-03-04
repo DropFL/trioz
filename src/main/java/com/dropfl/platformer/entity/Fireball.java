@@ -1,9 +1,10 @@
 package com.dropfl.platformer.entity;
 
-import com.dropfl.platformer.collision.SquareToCircleCollider;
 import res.ImageResource;
 
 import java.awt.*;
+
+import static com.dropfl.platformer.collision.Collider.*;
 
 public class Fireball extends PlayerInteractive{
 
@@ -13,7 +14,7 @@ public class Fireball extends PlayerInteractive{
         this.rotation = 0;
         this.width = 100;
         this.height = 100;
-        this.collider = new SquareToCircleCollider();
+        this.collider = CIRC_2_SQ;
         this.image = ImageResource.FIREBALL.getImageIcon().getImage().getScaledInstance(100,100, Image.SCALE_FAST);
     }
 

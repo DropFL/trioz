@@ -1,9 +1,10 @@
 package com.dropfl.platformer.entity;
 
-import com.dropfl.platformer.collision.OBBCollider;
 import res.ImageResource;
 
 import java.awt.*;
+
+import static com.dropfl.platformer.collision.Collider.*;
 
 public class Bullet extends PlayerInteractive {
 
@@ -13,7 +14,7 @@ public class Bullet extends PlayerInteractive {
         this.rotation = 0;
         this.width = width;
         this.height = height;
-        this.collider = new OBBCollider();
+        this.collider = OBB;
         this.image = ImageResource.FIRE.getImageIcon().getImage().getScaledInstance(width,height, Image.SCALE_SMOOTH);
     }
 

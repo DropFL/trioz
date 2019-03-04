@@ -1,9 +1,10 @@
 package com.dropfl.platformer.entity;
 
-import com.dropfl.platformer.collision.OBBCollider;
 import res.ImageResource;
 
 import java.awt.*;
+
+import static com.dropfl.platformer.collision.Collider.*;
 
 public class Laser extends PlayerInteractive{
     private boolean used = true;
@@ -12,7 +13,7 @@ public class Laser extends PlayerInteractive{
         this.y = y;
         this.width = width;
         this.height = height;
-        this.collider = new OBBCollider();
+        this.collider = OBB;
         this.image = ImageResource.LASER_R.getImageIcon().getImage().getScaledInstance(width * 5, height, Image.SCALE_FAST);
     }
 
