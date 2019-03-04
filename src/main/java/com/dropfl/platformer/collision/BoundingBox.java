@@ -1,24 +1,71 @@
 package com.dropfl.platformer.collision;
 
-import com.dropfl.util.Pair;
 import com.dropfl.util.Point;
 
 /**
- * {@code BoundingBox} represents a collidable rectangle.
+ * {@code BoundingBox} defines some methods to describe a imaginary rectangular hitarea.
+ * You can draw the bounding box of an object in this way:
+ * 
+ * <ol>
+ *   <li>draw a rectangle with {@code width}x{@code height} size.</li>
+ *   <li>place its upper-left point at ({@code x}, {@code y}).</li>
+ *   <li>with upper-left point is fixed, turn it by {@code rotation} in CCW.</li>
+ * </ol>
+ * 
+ * Note that pivot of rotation in 3rd step is not the global origin point (0, 0).
+ * You can assume the rectangle is rotated first and moved by {@code x} and {@code y}; it makes no difference.
+ * 
+ * @see Collider
  */
 public interface BoundingBox {
     /**
-     * @return the rotation of this bounding box in radians.
+     * @return rotation of the rectangle in radians.
      */
-    double getRotation ();
+    double rotation ();
 
     /**
-     * @return origin point (i.e. the pivot of rotation, most upper-left point when rotation is zero) in pair.
+     * @return horizontal offset of the hitarea.
      */
-    Point getOrigin ();
-    
+    double x ();
+
     /**
-     * @return width-height pair, ignoring rotation.
+     * @return vertical offset of the hitarea.
      */
-    Pair<Double> getSize ();
+    double y ();
+
+    /**
+     * @return width of the hitarea.
+     */
+    double width ();
+
+    /**
+     * @return height of the hitarea.
+     */
+    double height ();
+
+    /**
+     * @return location of the original upper-left vertex as a point.
+     */
+    default Point upperLeft () {
+        return new Point(x(), y());
+    }
+
+    /**
+     * @return location of the original right-below vertex as a point.
+     */
+    default Point rightBelow () {
+        return new Point(width(), height())
+                    .rotate(rotation())
+                    .add(x(), y());
+    }
+
+    /**
+     * @return location of the center of hitarea as a point.
+     */
+    default Point center () {
+        return new Point(width(), height())
+                    .multiply(0.5)
+                    .rotate(rotation())
+                    .add(x(), y());
+    }
 }

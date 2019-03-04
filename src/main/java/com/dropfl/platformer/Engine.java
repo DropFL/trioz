@@ -4,7 +4,6 @@ import com.dropfl.component.IDrawable;
 import com.dropfl.key.Key;
 import com.dropfl.key.KeyStatus;
 import com.dropfl.platformer.entity.*;
-import com.dropfl.util.Pair;
 import com.dropfl.util.Point;
 
 import java.awt.Graphics2D;
@@ -40,16 +39,19 @@ public final class Engine implements IDrawable {
         this.inputAvailable = inputAvailable;
     }
     public Point playerOrigin () {
-        return player.getOrigin();
+        return player.upperLeft();
     }
-    public Pair<Double> playerSize() {
-        return player.getSize();
+    public double playerWidth() {
+        return player.width();
     }
-    public Point playerBottomRight() {
-        return player.getBottomRight();
+    public double playerHeight() {
+        return player.height();
+    }
+    public Point playerRightBelow() {
+        return player.rightBelow();
     }
     public Point playerCenter() {
-        return player.getCenter();
+        return player.center();
     }
     public boolean isInputAvailable () {
         return inputAvailable;

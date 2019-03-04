@@ -9,16 +9,16 @@ public class OBBCollider extends Collider {
     
     @Override
     public boolean isCollided (BoundingBox box1, BoundingBox box2) {
-        double rad1 = box1.getRotation(),
-               rad2 = box2.getRotation();
+        double rad1 = box1.rotation(),
+               rad2 = box2.rotation();
                
         Point origin, end;
         Pair<Double> range_x, range_y;
         Pair<Pair<Double>> range;
         
         // test box2 relative to box1
-        origin  = box1.getOrigin().rotate(-rad1);
-        end     = origin.clone().add(box1.getSize());
+        origin  = box1.upperLeft().rotate(-rad1);
+        end     = origin.clone().add(box1.width(), box1.height());
         range   = projRange(box2, rad1);
         range_x = range.first();
         range_y = range.second();
@@ -29,8 +29,8 @@ public class OBBCollider extends Collider {
              end.y()    < range_y.first()     ) return false;
         
         // test box1 relative to box2
-        origin  = box2.getOrigin().rotate(-rad2);
-        end     = origin.clone().add(box2.getSize());
+        origin  = box2.upperLeft().rotate(-rad2);
+        end     = origin.clone().add(box2.width(), box2.height());
         range   = projRange(box1, rad2);
         range_x = range.first();
         range_y = range.second();
@@ -51,10 +51,9 @@ public class OBBCollider extends Collider {
      * @return ranges of projection on each line; first is the original, second is its normal.
      */
     private Pair<Pair<Double>> projRange (BoundingBox box, double rad) {
-        Pair<Double> size = box.getSize();
-        Point origin = box.getOrigin(),
-              w      = (new Point(size.first(),  0)).rotate(box.getRotation()),
-              h      = (new Point(0, size.second())).rotate(box.getRotation());
+        Point origin = box.upperLeft(),
+              w      = (new Point(box.width(),  0)).rotate(box.rotation()),
+              h      = (new Point(0, box.height())).rotate(box.rotation());
 
         ArrayList<Point> points = new ArrayList<>();
 

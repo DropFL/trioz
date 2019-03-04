@@ -5,11 +5,11 @@ import java.io.File;
 public class EntityFactory {
     private EntityFactory () {}
 
-    public static ImprovedEntity getEntity (File file) {
-        ImprovedEntity entity = new ImprovedEntity();
+    public static Entity getEntity (File file) {
+        // Entity entity = new Entity();
 
         //TODO implement factory based on "entity.ts"
 
-        return entity;
+        return null;
     }
 }

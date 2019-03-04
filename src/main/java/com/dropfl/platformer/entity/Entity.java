@@ -2,8 +2,6 @@ package com.dropfl.platformer.entity;
 
 import com.dropfl.component.ImageComponent;
 import com.dropfl.platformer.collision.BoundingBox;
-import com.dropfl.util.Pair;
-import com.dropfl.util.Point;
 
 public abstract class Entity extends ImageComponent implements BoundingBox {
     
@@ -11,29 +9,39 @@ public abstract class Entity extends ImageComponent implements BoundingBox {
     protected double height;
     
     @Override
-    public double getRotation () {
+    public double rotation () {
         return rotation;
     }
 
     @Override
-    public Point getOrigin () {
-        return new Point(x, y);
+    public double x () {
+        return x;
     }
 
     @Override
-    public Pair<Double> getSize () {
-        return new Pair<Double>(width, height);
+    public double y () {
+        return y;
     }
 
-    public void setX (double x) {
+    @Override
+    public double width () {
+        return width;
+    }
+
+    @Override
+    public double height () {
+        return height;
+    }
+
+    public void x (double x) {
         this.x = x;
     }
 
-    public void setY (double y) {
+    public void y (double y) {
         this.y = y;
     }
     
-    public void setRotation (double rotation) {
+    public void rotation (double rotation) {
         this.rotation = rotation;
     }
 }

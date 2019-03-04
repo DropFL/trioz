@@ -1,13 +1,12 @@
 package com.dropfl.platformer.entity;
 
-import com.dropfl.platformer.collision.AxisAlignedBoundingBox;
 import com.dropfl.platformer.collision.SquareToCircleCollider;
 import res.ImageResource;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 
-public class Ghost extends PlayerInteractive implements AxisAlignedBoundingBox {
+public class Ghost extends PlayerInteractive {
 
     private Image wing;
     

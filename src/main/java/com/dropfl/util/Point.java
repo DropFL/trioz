@@ -150,12 +150,15 @@ public class Point {
      * @return callee itself, after rotation.
      */
     public Point rotate (double rad) {
-        double sin = Math.sin(rad), cos = Math.cos(rad),
-               newX = x * cos - y * sin,
-               newY = x * sin + y * cos;
-        
-        x = newX;
-        y = newY;
+        if (rad != 0) {
+            double sin = Math.sin(rad),
+                   cos = Math.cos(rad),
+                   newX = x * cos - y * sin,
+                   newY = x * sin + y * cos;
+            
+            x = newX;
+            y = newY;
+        }
 
         return this;
     }

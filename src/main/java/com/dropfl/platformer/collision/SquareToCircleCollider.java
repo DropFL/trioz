@@ -1,27 +1,25 @@
 package com.dropfl.platformer.collision;
 
-import com.dropfl.util.Pair;
 import com.dropfl.util.Point;
 
 public class SquareToCircleCollider extends Collider {
     @Override
-    public boolean isCollided (BoundingBox square, BoundingBox circle) {
-        if (square.getRotation() != 0)
+    public boolean isCollided (BoundingBox circle, BoundingBox square) {
+        if (square.rotation() != 0)
             throw new IllegalArgumentException("Square should not be rotated.");
+
+        double radius;
         
-        Pair<Double> size = circle.getSize();
-        
-        if (size.first().compareTo(size.second()) != 0)
+        if ((radius = circle.width()) != circle.height())
             throw new IllegalArgumentException("Circle should have square-shaped bounding box.");
         
+        radius /= 2;
         
-        double radius = size.first() / 2;
-        
-        Point center = circle.getOrigin().add( (new Point(radius, radius)).rotate(circle.getRotation()) );
+        Point center = circle.center();
         
         Point diff = new Point(),
-              origin = square.getOrigin(),
-              end = origin.clone().add(square.getSize());
+              origin = square.upperLeft(),
+              end = square.rightBelow();
         
         if (center.x() < origin.x())
             diff.x(origin.x() - center.x());

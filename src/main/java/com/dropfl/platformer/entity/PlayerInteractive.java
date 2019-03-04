@@ -8,6 +8,6 @@ public abstract class PlayerInteractive extends Entity {
     public abstract boolean interact (Player player);
     
     public boolean isCollided (Player player) {
-        return collider.isCollided(player, this);
+        return collider.isCollided(this, player);
     }
 }

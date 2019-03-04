@@ -1,14 +1,13 @@
 package com.dropfl.platformer.entity;
 
 import com.dropfl.platformer.collision.AABBCollider;
-import com.dropfl.platformer.collision.AxisAlignedBoundingBox;
 import com.dropfl.util.Point;
 
 import res.ImageResource;
 
 import java.awt.*;
 
-public class Block extends PlayerInteractive implements AxisAlignedBoundingBox {
+public class Block extends PlayerInteractive {
     
     public Block (int x, int y, int width, int height) {
         this.x = x;
@@ -24,20 +23,19 @@ public class Block extends PlayerInteractive implements AxisAlignedBoundingBox {
     public boolean interact (Player p) {
         double spX = p.getSpeedX(),
                spY = p.getSpeedY();
-        Point  tl  = p.getOrigin(),
-               br  = p.getBottomRight();
+        Point  rb  = p.rightBelow();
         
-        double left = tl.x(), right  = br.x(),
-               top  = tl.y(), bottom = br.y();
+        double left = p.x(), right  = rb.x(),
+               top  = p.y(), bottom = rb.y();
         
         // If the player is moved only vertically or horizontal area of this block covers the player's one,
         // it must be top-to-bottom collision.
         if ((x < left && right < x + width) || spX == 0) {
             if (spY > 0) {
-                p.setY(y - bottom + top);
+                p.y(y - bottom + top);
                 p.setJumped(0);
             } else {
-                p.setY(y + height);
+                p.y(y + height);
                 p.setSpeedY(0);
             }
 
@@ -47,8 +45,8 @@ public class Block extends PlayerInteractive implements AxisAlignedBoundingBox {
         // If the player is moved only horizontally or vertical area of this block covers the player's one,
         // it must be left-to-right collision.
         if ((y < top && bottom < y + height) || spY == 0) {
-            if (spX > 0) p.setX(x - right + left);
-            else p.setX(x + width);
+            if (spX > 0) p.x(x - right + left);
+            else p.x(x + width);
 
             return false;
         }
@@ -58,15 +56,15 @@ public class Block extends PlayerInteractive implements AxisAlignedBoundingBox {
         
         if (deltaX / spX > deltaY / spY) {
             // left-to-right collision.
-            if (spX > 0) p.setX(x - right + left);
-            else p.setX(x + width);
+            if (spX > 0) p.x(x - right + left);
+            else p.x(x + width);
         } else {
             // top-to-bottom collision.
             if (spY > 0) {
-                p.setY(y - bottom + top);
+                p.y(y - bottom + top);
                 p.setJumped(0);
             }
-            else p.setY(y + height);
+            else p.y(y + height);
             
             p.setSpeedY(0);
         }

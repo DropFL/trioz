@@ -1,8 +1,17 @@
 package com.dropfl.motion;
 
+import com.dropfl.platformer.*;
+import com.dropfl.music.*;
+
 /**
  * {@code MotionFactor} defines parameters for {@code Motion}.
- * for more detailed description of each element, refer to its description.
+ * 
+ * @see #X
+ * @see #Y
+ * @see #PLAYER_X
+ * @see #PLAYER_Y
+ * @see #ENGINE_TIME
+ * @see #REAL_TIME
  */
 public enum MotionFactor {
     /**
@@ -23,14 +32,20 @@ public enum MotionFactor {
     PLAYER_Y    ("py"),
     /**
      * {@code ENGINE_TIME} represents a virtual time elapsed in engine.
-     * This factor's increment depends on {@code Engine.speed}.
-     * For example, if {@code speed} is 0.2 constantly and (real) time passed 5 seconds, {@code ENGINE_TIME} is increased by 1000(ms).
+     * This factor's increment depends on {@link Engine#speed}.
+     * For example, if {@code speed} is 0.2 constantly and (real) time passed 5 seconds,
+     * {@code ENGINE_TIME} is increased by 1000(ms), not 5000.
+     * 
+     * @see Engine
      */
     ENGINE_TIME ("t"),
     /**
      * {@code REAL_TIME} represents the real time elapsed.
-     * actually, value of this factor is the position of current {@code MusicPlayer}.
-     * thus, when the game is paused, the {@code MusicPlayer} is also paused, so {@code REAL_TIME} does not change until resume.
+     * Actually, value of this factor is the position of current {@link MusicPlayer}.
+     * Thus, when the game is paused, the {@code MusicPlayer} is also paused,
+     * So {@code REAL_TIME} does not change until resume.
+     * 
+     * @see MusicPlayer#time()
      */
     REAL_TIME   ("rt");
 
@@ -41,7 +56,7 @@ public enum MotionFactor {
     }
 
     /**
-     * @return a string corresponds to the element. every {@code key} is unique.
+     * @return A string corresponds to the element. Every {@code key} is unique.
      */
     public String key () { return key; }
 }

@@ -19,9 +19,9 @@ public class EntityEvent extends TickEvent {
     
     @Override
     public void process (Double[] value) {
-        entity.setX(value[0]);
-        entity.setY(value[1]);
-        entity.setRotation(Math.toRadians(value[2]));
+        entity.x(value[0]);
+        entity.y(value[1]);
+        entity.rotation(Math.toRadians(value[2]));
     }
 
     @Override

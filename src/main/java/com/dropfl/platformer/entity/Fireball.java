@@ -1,12 +1,11 @@
 package com.dropfl.platformer.entity;
 
-import com.dropfl.platformer.collision.AxisAlignedBoundingBox;
 import com.dropfl.platformer.collision.SquareToCircleCollider;
 import res.ImageResource;
 
 import java.awt.*;
 
-public class Fireball extends PlayerInteractive implements AxisAlignedBoundingBox{
+public class Fireball extends PlayerInteractive{
 
     public Fireball (int x, int y, int width, int height) {
         this.x = x;

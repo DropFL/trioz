@@ -1,14 +1,13 @@
 package com.dropfl.platformer.entity;
 
 import com.dropfl.Main;
-import com.dropfl.platformer.collision.AxisAlignedBoundingBox;
 
 import res.ImageResource;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 
-public final class Player extends Entity implements AxisAlignedBoundingBox {
+public final class Player extends Entity {
     
     private boolean enabled;
     private int jumped;

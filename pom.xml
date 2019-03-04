@@ -23,19 +23,22 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/javazoom/jlayer -->
+    
+    <!-- JLayer -->
     <dependency>
         <groupId>javazoom</groupId>
         <artifactId>jlayer</artifactId>
         <version>1.0.1</version>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/org.mariuszgromada.math/MathParser.org-mXparser -->
+
+    <!-- mXparser -->
     <!-- <dependency>
         <groupId>org.mariuszgromada.math</groupId>
         <artifactId>MathParser.org-mXparser</artifactId>
         <version>4.3.3</version>
     </dependency> -->
-    <!-- https://mvnrepository.com/artifact/org.luaj/luaj-jse -->
+
+    <!-- LuaJ -->
     <!-- <dependency>
         <groupId>org.luaj</groupId>
         <artifactId>luaj-jse</artifactId>
