@@ -5,7 +5,7 @@ import res.ImageResource;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 
-import static com.dropfl.platformer.collision.Collider.*;
+import static com.dropfl.platformer.collision.CollisionType.*;
 
 public class Ghost extends PlayerInteractive {
 

@@ -9,13 +9,12 @@ import com.dropfl.util.Point;
  * <ol>
  *   <li>draw a rectangle with {@code width}x{@code height} size.</li>
  *   <li>place its upper-left point at ({@code x}, {@code y}).</li>
- *   <li>with upper-left point is fixed, turn it by {@code rotation} in CCW.</li>
+ *   <li>with the point fixed, turn it by {@code rotation} in CCW.</li>
  * </ol>
  * 
- * Note that pivot of rotation in 3rd step is not the global origin point (0, 0).
- * You can assume the rectangle is rotated first and moved by {@code x} and {@code y}; it makes no difference.
+ * Note that pivot of rotation in 3rd step is <strong>NOT</strong> the global origin point (0, 0).
  * 
- * @see Collider
+ * @see CollisionType
  */
 public interface BoundingBox {
     /**

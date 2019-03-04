@@ -60,17 +60,17 @@ void render (java.awt.Graphics2D);
 
 `ImageComponent`는 자체적인 이미지를 갖고있는 컴포넌트이며, `IDrawable`을 구현하였다. 좌표(`x`, `y`)와 회전 각도(`rotation`)에 따라 갖고 있는 이미지(`image`)를 그리는 `render` 메서드가 구현되어 있다.
 
-### 2.4 BoundingBox, Collider
+### 2.4 BoundingBox, CollisionType
 
-이 게임엔진에서 충돌판정 알고리즘을 결정할 때 스트래티지 패턴을 사용하며, 이에 쓰이는 객체가 `Collider`이다.
+이 게임엔진에서 충돌판정 알고리즘을 결정할 때 스트래티지 패턴을 사용하며, 이에 쓰이는 객체가 `CollisionType`이다.
 
-`BoundingBox`는 플랫포머 엔진 내 도형의 Bounding Box에 대한 데이터를 가져올 수 있는 메서드가 정의된 인터페이스이고, `Collider`는 이 메서드를 이용해 두 `BoundingBox`의 충돌을 판별하는 추상 클래스이다. 이 게임에 쓰이는 엔티티들은 모두 사각형 또는 원이기에 Bounding Box를 저장하는 것으로 각 도형을 충분히 표현할 수 있다. 이들을 이용해 `Collider`에서 적절한 알고리즘으로 충돌을 판정하는 메서드는 다음과 같다.
+`BoundingBox`는 플랫포머 엔진 내 도형의 Bounding Box에 대한 데이터를 가져올 수 있는 메서드가 정의된 인터페이스이고, `CollisionType`는 이 메서드를 이용해 두 `BoundingBox`의 충돌을 판별하는 추상 클래스이다. 이 게임에 쓰이는 엔티티들은 모두 사각형 또는 원이기에 Bounding Box를 저장하는 것으로 각 도형을 충분히 표현할 수 있다. 이들을 이용해 `CollisionType`에서 적절한 알고리즘으로 충돌을 판정하는 메서드는 다음과 같다.
 
 ```JAVA
 boolean isCollided (com.dropfl.platformer.collision.BoundingBox, com.dropfl.platformer.collision.BoundingBox);
 ```
 
-현재 고려하고 있는 충돌판정 알고리즘은 사각형-원 충돌 알고리즘, AABB, OBB로 크게 3가지가 있으며, 각각이 구현된 `SquaretoCircleCollider`, `AABBCollider`, `OBBCollider`가 정의되어있다.
+현재 고려하고 있는 충돌판정 알고리즘은 원-사각형 충돌 알고리즘, AABB, OBB로 크게 3가지가 있으며, 각각이 구현된 `CIRC_2_SQ`, `AABB`, `OBB`가 정의되어있다.
 
 ### 2.5 Entity, PlayerInteractive
 
@@ -81,7 +81,7 @@ boolean isCollided (com.dropfl.platformer.entity.Player);
 boolean interact (com.dropfl.platformer.entity.Player);
 ```
 
-각각 플레이어와 접촉했는지 확인하는 메서드, 플레이어와 상호작용하는 메서드이다. `isCollided` 함수는 온전히 `Collider`에게 위임되어 있지만. `interact` 함수는 구현되어있지 않다. `interact` 메서드의 리턴값은 상호작용 후 해당 엔티티의 삭제가 필요한지를 `Engine`에게 알려주는 역할을 한다. (`true`면 삭제이다.) 이 때 제거용 `PlayerInteractive.destroy()` 메서드의 필요성을 검토하고 있지만 아직 확정되진 않았다.
+각각 플레이어와 접촉했는지 확인하는 메서드, 플레이어와 상호작용하는 메서드이다. `isCollided` 함수는 온전히 `CollisionType`에게 위임되어 있지만. `interact` 함수는 구현되어있지 않다. `interact` 메서드의 리턴값은 상호작용 후 해당 엔티티의 삭제가 필요한지를 `Engine`에게 알려주는 역할을 한다. (`true`면 삭제이다.) 이 때 제거용 `PlayerInteractive.destroy()` 메서드의 필요성을 검토하고 있지만 아직 확정되진 않았다.
 
 #### 2.5.1 ImprovedEntity, EntityFactory
 

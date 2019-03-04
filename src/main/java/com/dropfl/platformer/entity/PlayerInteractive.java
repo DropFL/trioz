@@ -1,9 +1,9 @@
 package com.dropfl.platformer.entity;
 
-import com.dropfl.platformer.collision.Collider;
+import com.dropfl.platformer.collision.CollisionType;
 
 public abstract class PlayerInteractive extends Entity {
-    protected Collider collider;
+    protected CollisionType collider;
     
     public abstract boolean interact (Player player);
     

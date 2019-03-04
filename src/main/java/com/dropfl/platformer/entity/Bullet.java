@@ -4,7 +4,7 @@ import res.ImageResource;
 
 import java.awt.*;
 
-import static com.dropfl.platformer.collision.Collider.*;
+import static com.dropfl.platformer.collision.CollisionType.*;
 
 public class Bullet extends PlayerInteractive {
 
