@@ -2,6 +2,10 @@ package com.dropfl.util;
 
 /**
  * {@code Point} object represents a 2D point or a 2D vector.
+ * This class also defines some common operations (e.g. {@link #rotate(double)}, {@link #dot(Point)})
+ * and transformation from Number-based {@link Pair} to {@code Point} and vice versa.
+ * 
+ * @see Pair
  */
 public class Point {
 
@@ -25,7 +29,7 @@ public class Point {
      * 
      * @param pair {@code Pair} object that contains {@code x} and {@code y} values.
      */
-    public Point (Pair<Double> pair) { this(pair.first(), pair.second()); }
+    public Point (Pair<? extends Number> pair) { this(pair.first().doubleValue(), pair.second().doubleValue()); }
 
     /**
      * makes copy of {@code point}.
@@ -78,8 +82,8 @@ public class Point {
      * @param pair {@code Pair} contains x-y pair to add.
      * @return callee itself, after addition.
      */
-    public Point add (Pair<Double> pair) {
-        return add(pair.first(), pair.second());
+    public Point add (Pair<? extends Number> pair) {
+        return add(pair.first().doubleValue(), pair.second().doubleValue());
     }
 
     /**
@@ -112,8 +116,8 @@ public class Point {
      * @param pair {@code Pair} contains x-y pair to subtract.
      * @return callee itself, after subtraction.
      */
-    public Point subtract (Pair<Double> pair) {
-        return subtract(pair.first(), pair.second());
+    public Point subtract (Pair<? extends Number> pair) {
+        return subtract(pair.first().doubleValue(), pair.second().doubleValue());
     }
 
     /**

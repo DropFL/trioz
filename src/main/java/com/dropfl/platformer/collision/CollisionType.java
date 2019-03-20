@@ -23,7 +23,7 @@ public enum CollisionType {
      * <p>
      * If you call {@link #isCollided()} where any {@code BoundingBox} is rotated
      * (i.e. {@link BoundingBox#rotation()} returns non-zero value),
-     * the function will throw an {@code IllegalStateException}.
+     * the function will throw {@code IllegalArgumentException}.
      * 
      * @see #OBB
      */
@@ -51,10 +51,11 @@ public enum CollisionType {
      * <strong>Note</strong>: this type does NOT treat two {@code BoundingBox}es the same;
      * one as a circle, other one as a rectangle.
      * So please keep the order of arguments when calling {@link #isCollided()};
-     * it may throw an {@code IllegalStateException}.
+     * it may throw {@code IllegalArgumentException}.
      * <p>
      * <strong>Note2</strong>: it CANNOT detect collision between ellipse (not circle) and rectangle.
-     * So a {@code BoundingBox} corresponds to circle must be square-shaped, not rectangle.
+     * So a {@code BoundingBox} corresponds to circle MUST be square-shaped, not rectangle.
+     * If not so, {@link #isCollided()} will throw {@code IllegalArgumentException}.
      */
     CIRC_2_SQ(new CircleToSquareDetector());
 

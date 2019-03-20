@@ -18,8 +18,8 @@ class CircleToSquareDetector implements IDetector {
         Point center = circle.center();
         
         Point diff = new Point(),
-            origin = square.upperLeft(),
-            end = square.rightBelow();
+              origin = square.upperLeft(),
+              end = square.rightBelow();
         
         if (center.x() < origin.x())
             diff.x(origin.x() - center.x());

@@ -33,17 +33,17 @@ public enum MotionFactor {
     /**
      * {@code ENGINE_TIME} represents a virtual time elapsed in engine.
      * This factor's increment depends on {@link Engine#speed}.
-     * For example, if {@code speed} is 0.2 constantly and (real) time passed 5 seconds,
-     * {@code ENGINE_TIME} is increased by 1000(ms), not 5000.
+     * E.g., if {@code speed} is 0.2 constantly and (real) time passed by 5 seconds,
+     * {@code ENGINE_TIME} will be increased by 1000(ms).
      * 
      * @see Engine
      */
     ENGINE_TIME ("t"),
     /**
      * {@code REAL_TIME} represents the real time elapsed.
-     * Actually, value of this factor is the position of current {@link MusicPlayer}.
-     * Thus, when the game is paused, the {@code MusicPlayer} is also paused,
-     * So {@code REAL_TIME} does not change until resume.
+     * Actually, value of this factor equals to the position of current {@link MusicPlayer}.
+     * E.g., when the game and its {@code MusicPlayer} is paused,
+     * {@code REAL_TIME} does not change until resume.
      * 
      * @see MusicPlayer#time()
      */

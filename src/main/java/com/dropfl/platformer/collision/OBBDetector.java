@@ -23,9 +23,9 @@ class OBBDetector implements IDetector {
         range_y = range.second();
 
         if ( origin.x() > range_x.second() ||
-            end.x()    < range_x.first()  ||
-            origin.y() > range_y.second() ||
-            end.y()    < range_y.first()     ) return false;
+             end.x()    < range_x.first()  ||
+             origin.y() > range_y.second() ||
+             end.y()    < range_y.first()     ) return false;
         
         // test box1 relative to box2
         origin  = box2.upperLeft().rotate(-rad2);
@@ -35,9 +35,9 @@ class OBBDetector implements IDetector {
         range_y = range.second();
 
         if ( origin.x() > range_x.second() ||
-            end.x()    < range_x.first()  ||
-            origin.y() > range_y.second() ||
-            end.y()    < range_y.first()     ) return false;
+             end.x()    < range_x.first()  ||
+             origin.y() > range_y.second() ||
+             end.y()    < range_y.first()     ) return false;
 
         return true;
     }

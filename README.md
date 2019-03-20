@@ -3,18 +3,20 @@
 
 ***
 
+**_주의: 현재 열람중인 브랜치는 master가 아닌 dev이다._**
+
 ## 1. 패키지 분류
 
 ### 1.1 res
 
-게임에 포함된 리소스가 들어있는 패키지이다. 리소스의 종류(그림, 음악 등)에 따라 하위 디렉토리로 분류되어 있다. 이 패키지에는 리소스 외에도 `XResource` 의 이름을 갖는 Enumerator들이 있다. 이는 *X* 타입의 리소스 파일과 프로그램을 연결해주며 해당 리소스와 관련된 프로세스를 내부적으로 처리해주는 역할을 한다.
+게임에 포함된 리소스가 들어있는 패키지이다. 리소스의 종류(그림, 음악 등)에 따라 하위 디렉토리로 분류되어 있다. 이 패키지에는 리소스 외에도 `XResource` 의 이름을 갖는 열거체들이 있다. 이는 *X* 타입의 리소스 파일과 프로그램을 연결해주며 해당 리소스와 관련된 프로세스를 내부적으로 처리해주는 역할을 한다.
 예를 들어, `ImageResource`는 `res/images` 디렉토리 내의 각 이미지 파일과 일대일로 매칭된 객체들을 갖고 있으며, 각 파일로부터 `ImageIcon`을 가져오는 `getImageIcon()` 메서드를 갖고 있다.
 
 ### 1.2 com.dropfl
 
 * `com.dropfl.activity` : `Activity`와 이를 상속한 클래스들이 있는 패키지.
 
-* `com.dropfl.component` : 렌더링과 관련된 인터페이스가 있는 패키지.
+* `com.dropfl.component` : 렌더링과 관련된 요소가 있는 패키지.
 
 * `com.dropfl.effect` : 화면 이펙트와 관련된 클래스가 있는 패키지.
 
@@ -64,7 +66,7 @@ void render (java.awt.Graphics2D);
 
 이 게임엔진에서 충돌판정 알고리즘을 결정할 때 스트래티지 패턴을 사용하며, 이에 쓰이는 객체가 `CollisionType`이다.
 
-`BoundingBox`는 플랫포머 엔진 내 도형의 Bounding Box에 대한 데이터를 가져올 수 있는 메서드가 정의된 인터페이스이고, `CollisionType`는 이 메서드를 이용해 두 `BoundingBox`의 충돌을 판별하는 추상 클래스이다. 이 게임에 쓰이는 엔티티들은 모두 사각형 또는 원이기에 Bounding Box를 저장하는 것으로 각 도형을 충분히 표현할 수 있다. 이들을 이용해 `CollisionType`에서 적절한 알고리즘으로 충돌을 판정하는 메서드는 다음과 같다.
+`BoundingBox`는 플랫포머 엔진 내 도형의 Bounding Box에 대한 데이터를 가져올 수 있는 메서드가 정의된 인터페이스이고, `CollisionType`는 이 메서드를 이용해 두 `BoundingBox`의 충돌을 판별하는 열거체이다. 이 게임에 쓰이는 엔티티들은 모두 사각형 또는 원이기에 Bounding Box를 저장하는 것으로 각 도형을 충분히 표현할 수 있다. 이들을 이용해 `CollisionType`에서 적절한 알고리즘으로 충돌을 판정하는 메서드는 다음과 같다.
 
 ```JAVA
 boolean isCollided (com.dropfl.platformer.collision.BoundingBox, com.dropfl.platformer.collision.BoundingBox);
