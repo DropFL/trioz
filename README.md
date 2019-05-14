@@ -1,8 +1,6 @@
 
 # The Trioz 프로젝트 구조
 
-***
-
 ## 1. 패키지 분류
 
 ### 1.1 res
@@ -33,8 +31,6 @@
   * `com.dropfl.platformet.event` : 시간에 따라 발생하는 게임 내 이벤트가 정의된 패키지.
 
 * `com.dropfl.util` : 코딩에서의 편의를 위한 클래스가 있는 패키지.
-
-***
 
 ## 2. 핵심 객체
 
@@ -133,8 +129,6 @@ void setKeyProcessed (com.dropfl.key.Key);
 * [mXparser](http://mathparser.org/)를 이용해 직접 `String`으로 적힌 식을 계산하는 방식. 이 경우 `Motion`을 정의하는 리소스 자체의 크기가 작고 계산의 정확도 등에서 이점을 갖는다.
 
 * [LuaJ](http://www.luaj.org/luaj/3.0/README.html)를 이용해 Lua로 코딩된 작은 프로그램을 실행시키는 방식. 이 경우 위의 mXparser에 비해 라이브러리의 크기가 작으며 컴파일된 바이너리로 성능의 향상을 생각할 수도 있고, 더 높은 자유도가 있다는 장점이 있다. 향후 기능 확장을 고려했을 때 압도적으로 유리하다.
-
-***
 
 ## 3. 프로그램 구조
 
