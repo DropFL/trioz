@@ -3,8 +3,8 @@ package res;
 import javax.swing.*;
 import java.awt.*;
 
-public enum ImageResource {
-    
+public enum ImageResource
+{
     DROP_IMAGE("DR.jpg"),
     UNIT_IMAGE("Unit.png"),
     TEMP_UNIT_100("TmpUnit100.jpg"),
@@ -18,7 +18,7 @@ public enum ImageResource {
     BULLET_ORB_1("bullet_type1_orb1.png"),
     BULLET_ORB_2("bullet_type1_orb2.png"),
     LASER("laser.jpg"),
-    
+
     // Backgrounds
     START_BACKGROUND("Start_Bground.jpg"),
     START_BACKGROUND_EMPHASIZE("Start_Bground_emphasize.jpg"),
@@ -43,32 +43,41 @@ public enum ImageResource {
     HPBAR("hpbar.png"),
     HP("hp.png"),
     LASER_R("laser_red.png"),
-    
+
     // Other game effects
     GIGGLE_1("giggle_1.png"),
     GIGGLE_2("giggle_2.png"),
     GIGGLE_3("giggle_3.png"),
     GIGGLE_4("giggle_4.png"),
     LIGHT_OFF("LightOff.png");
-    
+
     private ImageIcon imageIcon;
-    
-    ImageResource (String name) {
-        try {
+
+    ImageResource(String name)
+    {
+        try
+        {
             imageIcon = new ImageIcon(getClass().getResource("images/" + name));
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
             imageIcon = null;
         }
     }
-    
-    public ImageIcon getImageIcon () {
+
+    public ImageIcon getImageIcon()
+    {
         return imageIcon;
     }
-    public ImageIcon getImageIcon (int width, int height) {
+
+    public ImageIcon getImageIcon(int width, int height)
+    {
         return new ImageIcon(imageIcon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
     }
-    public ImageIcon getImageIcon (int width, int height, int hint) {
+
+    public ImageIcon getImageIcon(int width, int height, int hint)
+    {
         return new ImageIcon(imageIcon.getImage().getScaledInstance(width, height, hint));
     }
 }

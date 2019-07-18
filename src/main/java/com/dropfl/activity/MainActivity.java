@@ -14,8 +14,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.VolatileImage;
 
-public final class MainActivity extends Activity{
-    
+public final class MainActivity extends Activity
+{
     private Image bgImage;
     private int prevBeat;
     private float alpha;
@@ -25,8 +25,9 @@ public final class MainActivity extends Activity{
     private final JButton exit_btn;
     private final MouseAdapter start_adapter;
     private final MouseAdapter exit_adapter;
-    
-    public MainActivity () {
+
+    public MainActivity()
+    {
         title = "Main Activity";
         bgm = new DefaultMusicPlayer(SoundResource.THE_FLOOR_IS_LAVA, true);
         bgImage = ImageResource.START_BACKGROUND.getImageIcon().getImage();
@@ -34,70 +35,83 @@ public final class MainActivity extends Activity{
         start_btn = new JButton(ImageResource.BLANK_BUTTON.getImageIcon(226, 68));
         // option_btn = new JButton(ImageResource.BLANK_BUTTON.getImageIcon(226, 68));
         exit_btn = new JButton(ImageResource.BLANK_BUTTON.getImageIcon(226, 68));
-        
-        start_adapter = new MouseAdapter() {
+
+        start_adapter = new MouseAdapter()
+        {
             @Override
-            public void mouseClicked (MouseEvent e) {
+            public void mouseClicked(MouseEvent e)
+            {
                 super.mouseClicked(e);
-                if(bgm.isPlaying())
+                if (bgm.isPlaying())
                     requestActivityChange(PlatformerActivity.class);
             }
         };
-        
-        exit_adapter = new MouseAdapter() {
+
+        exit_adapter = new MouseAdapter()
+        {
             @Override
-            public void mouseClicked (MouseEvent e) {
+            public void mouseClicked(MouseEvent e)
+            {
                 super.mouseClicked(e);
                 close();
                 System.exit(0);
             }
         };
     }
-    
+
     @Override
-    public VolatileImage getScreen () {
-        
-        if(KeyStatus.isKeyJustPressed(Key.ESCAPE)) {
+    public VolatileImage getScreen()
+    {
+
+        if (KeyStatus.isKeyJustPressed(Key.ESCAPE))
+        {
             KeyStatus.setKeyProcessed(Key.ESCAPE);
             close();
             System.exit(0);
         }
-        
+
         updateImage();
         graphics.setRenderingHints(Main.getRenderingHint());
-        
+
         int time = bgm.time();
         int curBeat = prevBeat;
-        
+
         prevBeat = time % 1875;
-        if(prevBeat < curBeat) alpha = 0.8f;
-        
+        if (prevBeat < curBeat)
+            alpha = 0.8f;
+
         graphics.drawImage(bgImage, 0, 0, null);
-        
-        new ImageOverlayEffect(0, 0, ImageResource.START_BACKGROUND_EMPHASIZE.getImageIcon().getImage(), alpha).apply(image);
-        
+
+        new ImageOverlayEffect(0, 0, ImageResource.START_BACKGROUND_EMPHASIZE.getImageIcon().getImage(), alpha)
+                .apply(image);
+
         alpha /= 1.01f;
-        
+
         return image;
     }
-    
+
     @Override
-    public void start () {
+    public void start()
+    {
         bgm.play();
         createImage();
-        
+
         addButton(start_btn, Main.SCREEN_WIDTH / 2 + 275, Main.SCREEN_HEIGHT / 2 - 65, 226, 68, start_adapter);
         addButton(exit_btn, Main.SCREEN_WIDTH / 2 + 275, Main.SCREEN_HEIGHT / 2 + 110, 226, 68, exit_adapter);
     }
-    
+
     @Override
-    public void close () {
+    public void close()
+    {
         start_btn.removeMouseListener(start_adapter);
         exit_btn.removeMouseListener(exit_adapter);
-        
-        try {
+
+        try
+        {
             bgm.stop();
-        } catch (IllegalStateException e) {
+        }
+        catch (IllegalStateException e)
+        {
             // do nothing
         }
     }

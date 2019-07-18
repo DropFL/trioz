@@ -9,10 +9,11 @@ import com.dropfl.util.Point;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
-public final class Engine implements IDrawable {
-    
+public final class Engine implements IDrawable
+{
     private double gravity = 1;
     private double speed = 1;
+    private double time = 0;
     private boolean inputAvailable = true;
 
     // Entities
@@ -21,91 +22,135 @@ public final class Engine implements IDrawable {
     private ArrayList<Block> blocks;
     private ArrayList<PlayerInteractive> entities;
     private ArrayList<PlayerInteractive> removeEntities;
-    
-    public double gravity () {
+
+    public double gravity()
+    {
         return gravity;
     }
-    public double speed () {
-        return speed;
-    }
-    
-    public void gravity (double gravity) {
+
+    public void gravity(double gravity)
+    {
         this.gravity = gravity;
     }
-    public void speed (double speed) {
+
+    public double speed()
+    {
+        return speed;
+    }
+
+    public void speed(double speed)
+    {
         this.speed = speed;
     }
-    public void setInputAvailable (boolean inputAvailable) {
+
+    public double time()
+    {
+        return time;
+    }
+
+    public void setInputAvailable(boolean inputAvailable)
+    {
         this.inputAvailable = inputAvailable;
     }
-    public Point playerOrigin () {
+
+    public Point playerOrigin()
+    {
         return player.upperLeft();
     }
-    public double playerWidth() {
+
+    public double playerWidth()
+    {
         return player.width();
     }
-    public double playerHeight() {
+
+    public double playerHeight()
+    {
         return player.height();
     }
-    public Point playerRightBelow() {
+
+    public Point playerRightBelow()
+    {
         return player.rightBelow();
     }
-    public Point playerCenter() {
+
+    public Point playerCenter()
+    {
         return player.center();
     }
-    public boolean isInputAvailable () {
+
+    public boolean isInputAvailable()
+    {
         return inputAvailable;
     }
-    public int getPlayerHp () { return player.getHp(); }
-    public int getPlayerSheilds () {
+
+    public int getPlayerHp()
+    {
+        return player.getHp();
+    }
+
+    public int getPlayerSheilds()
+    {
         return player.getShieldCount();
     }
-    
-    public ArrayList<Block> getBlocks () {
+
+    public ArrayList<Block> getBlocks()
+    {
         return blocks;
     }
-    public ArrayList<PlayerInteractive> getEntities () {
+
+    public ArrayList<PlayerInteractive> getEntities()
+    {
         return entities;
     }
 
-    public Engine () {
+    public Engine()
+    {
         blocks = new ArrayList<>();
         entities = new ArrayList<>();
         removeEntities = new ArrayList<>();
         player = new Player();
     }
-    
-    public void tick () {
-        if(isInputAvailable())
+
+    public void tick()
+    {
+        if (isInputAvailable())
             handleInput();
 
-        if (player.getShieldTime() > 0) {
+        if (player.getShieldTime() > 0)
+        {
             player.setShieldTime(player.getShieldTime() - 1);
         }
-        else{
+        else
+        {
             player.shieldOff();
         }
 
         player.addX(speed * player.getSpeedX());
         player.addY(speed * player.getSpeedY());
         player.addSpeedY(speed * gravity);
-        
+
         if (player.getHitDelay() > 0)
             player.setHitDelay(player.getHitDelay() - 1);
 
-        for (PlayerInteractive e : blocks) {
+        for (PlayerInteractive e : blocks)
+        {
             if (e.isCollided(player))
                 e.interact(player);
         }
-        for (PlayerInteractive e : entities) {
-            if (e.isCollided(player) && e.interact(player)) removeEntities.add(e);
+        for (PlayerInteractive e : entities)
+        {
+            if (e.isCollided(player) && e.interact(player))
+                removeEntities.add(e);
         }
 
         entities.removeAll(removeEntities);
         removeEntities.clear();
+
+        time += speed;
     }
 
-    public void render (Graphics2D g) {
+    public void render(Graphics2D g)
+    {
         for (PlayerInteractive entity : blocks)
             entity.render(g);
 
@@ -115,22 +160,27 @@ public final class Engine implements IDrawable {
         player.render(g);
     }
 
-    private void handleInput () {
-        if (KeyStatus.isKeyJustPressed(Key.SPACE)) {
-            if(player.getJumped() != 2){
+    private void handleInput()
+    {
+        if (KeyStatus.isKeyJustPressed(Key.SPACE))
+        {
+            if (player.getJumped() != 2)
+            {
                 player.setJumped(player.getJumped() + 1);
                 player.setSpeedY(-Player.MAX_SPEED_Y);
                 KeyStatus.setKeyProcessed(Key.SPACE);
             }
-        } else if (!KeyStatus.isKeyPressed(Key.SPACE) && player.getSpeedY() < 0)
+        }
+        else if (!KeyStatus.isKeyPressed(Key.SPACE) && player.getSpeedY() < 0)
             player.setSpeedY(0);
 
-        if(KeyStatus.isKeyPressed(Key.LEFT) ^ KeyStatus.isKeyPressed(Key.RIGHT))
+        if (KeyStatus.isKeyPressed(Key.LEFT) ^ KeyStatus.isKeyPressed(Key.RIGHT))
             player.setSpeedX(KeyStatus.isKeyPressed(Key.LEFT) ? -8 : 8);
         else
             player.setSpeedX(0);
 
-        if(KeyStatus.isKeyJustPressed(Key.S)){
+        if (KeyStatus.isKeyJustPressed(Key.S))
+        {
             player.shieldOn();
             player.setShieldTime(30);
         }
