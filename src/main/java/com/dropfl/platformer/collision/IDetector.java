@@ -1,6 +1,8 @@
 package com.dropfl.platformer.collision;
 
+import javax.annotation.Nonnull;
+
 interface IDetector
 {
-    boolean detect(BoundingBox self, BoundingBox target);
+    boolean detect(@Nonnull BoundingBox self, @Nonnull BoundingBox target);
 }

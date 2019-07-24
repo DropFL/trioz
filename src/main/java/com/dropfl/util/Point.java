@@ -239,9 +239,8 @@ public class Point
      */
     public Point normalize()
     {
-        double len;
-        if ((len = length()) == 0)
-            throw new IllegalStateException("Zero-vector cannot be normalized");
+        double len = length();
+        Preconditions.checkState(len != 0);
 
         multiply(1 / len);
 

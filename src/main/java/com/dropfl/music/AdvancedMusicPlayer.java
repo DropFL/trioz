@@ -1,5 +1,7 @@
 package com.dropfl.music;
 
+import com.google.common.base.Preconditions;
+
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.AudioDevice;
 import javazoom.jl.player.FactoryRegistry;
@@ -121,8 +123,7 @@ public class AdvancedMusicPlayer extends MusicPlayer
 
     public void play(MusicPlayerListener listener)
     {
-        if (state == PLAYING)
-            throw new IllegalStateException("player was playing, but tried to play again");
+        Preconditions.checkState(state != PLAYING);
 
         state = PLAYING;
         playerListener = listener;
@@ -150,8 +151,7 @@ public class AdvancedMusicPlayer extends MusicPlayer
 
     public void pause()
     {
-        if (state != PLAYING)
-            throw new IllegalStateException("player was not playing, but tried to pause");
+        Preconditions.checkState(state == PLAYING);
 
         state = PAUSED;
         player.stop();
@@ -159,8 +159,7 @@ public class AdvancedMusicPlayer extends MusicPlayer
 
     public void resume()
     {
-        if (state != PAUSED)
-            throw new IllegalStateException("player was not paused, but tried to resume");
+        Preconditions.checkArgument(state == PAUSED);
 
         state = PLAYING;
         thread = new Thread(onResume);

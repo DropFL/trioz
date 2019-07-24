@@ -1,24 +1,22 @@
 package com.dropfl.platformer.collision;
 
 import com.dropfl.util.Point;
+import com.google.common.base.Preconditions;
 
 class CircleToSquareDetector implements IDetector
 {
     @Override
     public boolean detect(BoundingBox circle, BoundingBox square)
     {
-        if (square.rotation() != 0)
-            throw new IllegalArgumentException("Square should not be rotated.");
+        Preconditions.checkArgument(square.rotation() == 0);
 
-        double radius;
+        double radius = circle.width();
 
-        if ((radius = circle.width()) != circle.height())
-            throw new IllegalArgumentException("Circle should have square-shaped bounding box.");
+        Preconditions.checkArgument(radius == circle.height());
 
         radius /= 2;
 
         Point center = circle.center();
-
         Point diff = new Point(), origin = square.upperLeft(), end = square.rightBelow();
 
         if (center.x() < origin.x())

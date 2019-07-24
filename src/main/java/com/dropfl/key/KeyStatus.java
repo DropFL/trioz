@@ -1,6 +1,9 @@
 package com.dropfl.key;
 
 import javax.swing.*;
+
+import com.google.common.base.Preconditions;
+
 import java.awt.event.ActionEvent;
 import java.util.HashMap;
 
@@ -15,8 +18,7 @@ public final class KeyStatus
 
     public static void init()
     {
-        if (isInitialized)
-            throw new IllegalStateException("KeyStatus already initialized");
+        Preconditions.checkState(!isInitialized);
 
         isInitialized = true;
         status = new HashMap<>();

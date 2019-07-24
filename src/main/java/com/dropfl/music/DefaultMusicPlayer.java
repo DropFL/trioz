@@ -1,5 +1,7 @@
 package com.dropfl.music;
 
+import com.google.common.base.Preconditions;
+
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 import res.SoundResource;
@@ -63,8 +65,7 @@ public class DefaultMusicPlayer extends MusicPlayer
     @Override
     public void play()
     {
-        if (isPlaying)
-            throw new IllegalStateException("player was playing, but tried to play again");
+        Preconditions.checkState(!isPlaying);
 
         thread = new Thread(onPlay);
         thread.start();
@@ -73,8 +74,7 @@ public class DefaultMusicPlayer extends MusicPlayer
     @Override
     public void stop()
     {
-        if (!isPlaying)
-            throw new IllegalStateException("player was not playing, but tried to stop");
+        Preconditions.checkState(isPlaying);    
 
         isPlaying = false;
         player.close();

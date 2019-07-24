@@ -1,6 +1,7 @@
 package com.dropfl.platformer.event;
 
 import com.dropfl.platformer.Engine;
+import com.google.common.base.Preconditions;
 
 import java.util.function.Function;
 
@@ -15,7 +16,7 @@ public class SpeedEvent extends TickEvent{
     
     @Override
     public void process (Double[] value) {
-        if(value[0] < 0) throw new IllegalArgumentException("Scale of engine cannot be negative.");
+        Preconditions.checkArgument(value[0] >= 0);
         engine.speed(value[0]);
     }
     

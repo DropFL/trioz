@@ -1,5 +1,7 @@
 package com.dropfl.util;
 
+import com.google.common.base.Preconditions;
+
 /**
  * {@code Pair<T>} is a 2D tuple of the same type {@code T}. This class is like
  * a {@code T}-type array with 2 elements.
@@ -72,14 +74,9 @@ public class Pair<T>
      */
     public T get(int index)
     {
-        if (index < 0)
-            throw new IndexOutOfBoundsException("Negative index is not accepted.");
-        if (index == 0)
-            return first;
-        if (index == 1)
-            return second;
-
-        throw new IndexOutOfBoundsException(index + "exceeds 1; it is out of range.");
+        Preconditions.checkPositionIndex(index, 1);
+        
+        return index == 0 ? first : second;
     }
 
     /**
