@@ -1,0 +1,40 @@
+properties:
+  resolution:
+    allowed:
+      - !!com.dropfl.util.Resolution
+        width: 1280
+        height: 720
+      - !!com.dropfl.util.Resolution
+        width: 1366
+        height: 768
+      - !!com.dropfl.util.Resolution
+        width: 1600
+        height: 900
+      - !!com.dropfl.util.Resolution
+        width: 1920
+        height: 1080
+    defaultValue:
+      !!com.dropfl.util.Resolution
+      width: 1280
+      height: 720
+  text_antialias:
+    allowed:
+      - true
+      - false
+    defaultValue: true
+  interpolation:
+    allowed:
+      - bilinear
+      - bicubic
+      - nearest-neighbor
+    defaultValue: bilinear
+  antialias:
+    allowed:
+      - true
+      - false
+    defaultValue: true
+  render:
+    allowed:
+      - quality
+      - speed
+    defaultValue: quality
