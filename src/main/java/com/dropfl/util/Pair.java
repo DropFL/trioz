@@ -1,14 +1,17 @@
 package com.dropfl.util;
 
+import java.util.AbstractList;
+
 import com.google.common.base.Preconditions;
 
 /**
  * {@code Pair<T>} is a 2D tuple of the same type {@code T}. This class is like
- * a {@code T}-type array with 2 elements.
+ * a {@code T}-type array with fixed size with 2.
  */
-public class Pair<T>
+public class Pair<T> extends AbstractList<T>
 {
-    private T first, second;
+    protected T first;
+    protected T second;
 
     /**
      * initializes two factors to {@code null}.
@@ -64,22 +67,6 @@ public class Pair<T>
     }
 
     /**
-     * Like {@link java.util.List#get(int)}, returns an element corresponds to
-     * {@code index}. Since {@code Pair} has only two elements, its maximal index is
-     * 1.
-     * 
-     * @return {@link #first()} or {@link #second()} when {@code index} is 0 or 1,
-     *         respectively.
-     * @throws IndexOutOfBoundsException if {@code index} is negative, or exceeds 1.
-     */
-    public T get(int index)
-    {
-        Preconditions.checkPositionIndex(index, 1);
-        
-        return index == 0 ? first : second;
-    }
-
-    /**
      * makes a copy from this {@code Pair}.
      * <p>
      * <strong>WARNING</strong>: this constructor uses shallow copy. It may cause
@@ -122,6 +109,37 @@ public class Pair<T>
     @Override
     public String toString()
     {
-        return "(" + first.toString() + ", " + second.toString() + ")";
+        return "(" + first + ", " + second + ")";
+    }
+
+    // List compatibility
+    
+    @Override
+    public T get(int index)
+    {
+        Preconditions.checkPositionIndex(index, 1);
+        
+        return index == 0 ? first : second;
+    }
+
+    @Override
+    public T set(int index, T element)
+    {
+        Preconditions.checkPositionIndex(index, 1);
+
+        T previous = get(index);
+
+        if (index == 0)
+            this.first = element;
+        else
+            this.second = element;
+
+        return previous;
+    }
+    
+    @Override
+    public int size()
+    {
+        return 2;
     }
 }

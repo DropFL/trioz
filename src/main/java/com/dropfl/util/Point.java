@@ -1,5 +1,7 @@
 package com.dropfl.util;
 
+import com.google.common.base.Preconditions;
+
 /**
  * {@code Point} object represents a 2D point or a 2D vector. This class also
  * defines some common operations (e.g. {@link #rotate(double)},
@@ -8,10 +10,8 @@ package com.dropfl.util;
  * 
  * @see Pair
  */
-public class Point
+public class Point extends Pair<Double>
 {
-    private double x, y;
-
     /**
      * constructs a {@code Point} object represents the origin point.
      */
@@ -28,8 +28,8 @@ public class Point
      */
     public Point(double x, double y)
     {
-        this.x = x;
-        this.y = y;
+        this.first = x;
+        this.second = y;
     }
 
     /**
@@ -49,7 +49,7 @@ public class Point
      */
     public Point(Point point)
     {
-        this(point.x, point.y);
+        this(point.first, point.second);
     }
 
     /**
@@ -59,7 +59,7 @@ public class Point
      */
     public double x()
     {
-        return x;
+        return first;
     }
 
     /**
@@ -69,7 +69,7 @@ public class Point
      */
     public double y()
     {
-        return y;
+        return second;
     }
 
     /**
@@ -79,7 +79,7 @@ public class Point
      */
     public void x(double value)
     {
-        this.x = value;
+        this.first = value;
     }
 
     /**
@@ -89,7 +89,7 @@ public class Point
      */
     public void y(double value)
     {
-        this.y = value;
+        this.second = value;
     }
 
     /**
@@ -123,8 +123,8 @@ public class Point
      */
     public Point add(double dx, double dy)
     {
-        x += dx;
-        y += dy;
+        first += dx;
+        second += dy;
 
         return this;
     }
@@ -160,8 +160,8 @@ public class Point
      */
     public Point subtract(double dx, double dy)
     {
-        x -= dx;
-        y -= dy;
+        first -= dx;
+        second -= dy;
 
         return this;
     }
@@ -174,8 +174,8 @@ public class Point
      */
     public Point multiply(double value)
     {
-        x *= value;
-        y *= value;
+        first *= value;
+        second *= value;
 
         return this;
     }
@@ -190,10 +190,10 @@ public class Point
     {
         if (rad != 0)
         {
-            double sin = Math.sin(rad), cos = Math.cos(rad), newX = x * cos - y * sin, newY = x * sin + y * cos;
+            double sin = Math.sin(rad), cos = Math.cos(rad), newX = first * cos - second * sin, newY = first * sin + second * cos;
 
-            x = newX;
-            y = newY;
+            first = newX;
+            second = newY;
         }
 
         return this;
@@ -207,7 +207,7 @@ public class Point
      */
     public double dot(Point point)
     {
-        return x * point.x + y * point.y;
+        return first * point.first + second * point.second;
     }
 
     /**
@@ -219,7 +219,7 @@ public class Point
      */
     public double cross(Point point)
     {
-        return x * point.y - y * point.x;
+        return first * point.second - second * point.first;
     }
 
     /**
@@ -229,7 +229,7 @@ public class Point
      */
     public double length()
     {
-        return Math.sqrt(x * x + y * y);
+        return Math.sqrt(first * first + second * second);
     }
 
     /**
@@ -255,21 +255,5 @@ public class Point
     public Point clone()
     {
         return new Point(this);
-    }
-
-    /**
-     * convert {@code Point} to {@code Pair<Double>}.
-     * 
-     * @return {@code Pair} contains data of x-y pair of current point.
-     */
-    public Pair<Double> pair()
-    {
-        return new Pair<>(x, y);
-    }
-
-    @Override
-    public String toString()
-    {
-        return "(" + x + ", " + y + ")";
     }
 }
