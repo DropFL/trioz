@@ -1,8 +1,8 @@
 resolution:
   !!com.dropfl.util.Resolution
-  width: 1366
-  height: 768
+  width: 1280
+  height: 720
 text_antialias: true
-interpolation: bicubic
+interpolation: bilinear
 antialias: true
-render: quality
+render: speed
