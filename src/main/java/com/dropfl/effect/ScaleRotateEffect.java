@@ -24,7 +24,7 @@ public class ScaleRotateEffect extends ScreenEffect
 
     public ScaleRotateEffect(double scaleX, double scaleY, double rotation)
     {
-        this(scaleX, scaleY, rotation, Main.SCREEN_WIDTH / 2, Main.SCREEN_HEIGHT / 2);
+        this(scaleX, scaleY, rotation, Main.getWidth() / 2, Main.getHeight() / 2);
     }
 
     public double getScaleX()

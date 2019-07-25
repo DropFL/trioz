@@ -89,7 +89,7 @@ public class ImageOverlayEffect extends ScreenEffect
         if (opacity != 1)
             g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) opacity));
 
-        g.setRenderingHints(Main.getRenderingHint());
+        g.setRenderingHints(Main.getRenderingHints());
 
         AffineTransform transform = new AffineTransform();
 

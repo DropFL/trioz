@@ -57,9 +57,9 @@ public class QuakeEffect extends ScreenEffect
 
         Graphics2D g = (Graphics2D) image.getGraphics();
 
-        g.setRenderingHints(Main.getRenderingHint());
+        g.setRenderingHints(Main.getRenderingHints());
         g.setColor(Color.BLACK);
-        g.fillRect(0, 0, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
+        g.fillRect(0, 0, Main.getWidth(), Main.getHeight());
 
         g.drawImage(ScreenEffect.image, transform, null);
 

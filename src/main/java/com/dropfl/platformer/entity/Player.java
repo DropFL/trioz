@@ -47,7 +47,7 @@ public final class Player extends Entity {
     }
     
     public Player () {
-        this(Main.SCREEN_WIDTH / 2, Main.SCREEN_HEIGHT / 2);
+        this(Main.getWidth() / 2, Main.getHeight() / 2);
     }
     
     // Getters

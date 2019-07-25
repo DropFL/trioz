@@ -23,7 +23,7 @@ public abstract class ScreenEffect
 
     protected static void createImage()
     {
-        image = config.createCompatibleVolatileImage(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
+        image = config.createCompatibleVolatileImage(Main.getWidth(), Main.getHeight());
     }
 
     protected static void updateImage()

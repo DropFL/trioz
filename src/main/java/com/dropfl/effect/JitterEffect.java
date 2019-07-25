@@ -74,24 +74,24 @@ public class JitterEffect extends ScreenEffect
         graphics.drawImage(image, 0, 0, null);
         Graphics2D g = (Graphics2D) image.getGraphics();
 
-        for (int i = 0; i < length && i + start < (direction ? Main.SCREEN_HEIGHT : Main.SCREEN_WIDTH); i++)
+        for (int i = 0; i < length && i + start < (direction ? Main.getHeight() : Main.getWidth()); i++)
         {
             int amount = (int) ((1 - random.nextDouble() * 2) * strength);
 
             if (amount == 0)
                 continue;
 
-            g.setClip(direction ? 0 : (i + start), direction ? (i + start) : 0, direction ? Main.SCREEN_WIDTH : 1,
-                    direction ? 1 : Main.SCREEN_HEIGHT);
+            g.setClip(direction ? 0 : (i + start), direction ? (i + start) : 0, direction ? Main.getWidth() : 1,
+                    direction ? 1 : Main.getHeight());
 
             g.setColor(Color.BLACK);
-            g.fillRect(0, 0, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
+            g.fillRect(0, 0, Main.getWidth(), Main.getHeight());
 
             g.drawImage(ScreenEffect.image, direction ? amount : 0, direction ? 0 : amount, null);
         }
 
         g.dispose();
-        g.setClip(0, 0, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
+        g.setClip(0, 0, Main.getWidth(), Main.getHeight());
     }
 
     @Override

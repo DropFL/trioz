@@ -101,9 +101,9 @@ public class PlatformerActivity extends Activity
         restart.setVisible(false);
         stop.setVisible(false);
 
-        addButton(resume, Main.SCREEN_WIDTH / 2 - 80, Main.SCREEN_HEIGHT / 2 + 180, 160, 160, resumeAdapter);
-        addButton(restart, Main.SCREEN_WIDTH / 2 - 320, Main.SCREEN_HEIGHT / 2 + 180, 160, 160, restartAdapter);
-        addButton(stop, Main.SCREEN_WIDTH / 2 + 160, Main.SCREEN_HEIGHT / 2 + 180, 160, 160, stopAdapter);
+        addButton(resume, Main.getWidth() / 2 - 80, Main.getHeight() / 2 + 180, 160, 160, resumeAdapter);
+        addButton(restart, Main.getWidth() / 2 - 320, Main.getHeight() / 2 + 180, 160, 160, restartAdapter);
+        addButton(stop, Main.getWidth() / 2 + 160, Main.getHeight() / 2 + 180, 160, 160, stopAdapter);
     }
 
     @Override
@@ -148,7 +148,7 @@ public class PlatformerActivity extends Activity
 
         updateImage();
 
-        graphics.setRenderingHints(Main.getRenderingHint());
+        graphics.setRenderingHints(Main.getRenderingHints());
 
         // Pre-renderer goes here
         graphics.drawImage(bgImage, 0, 0, null);
@@ -159,9 +159,9 @@ public class PlatformerActivity extends Activity
 
         // Post-renderer goes here
         graphics.setColor(Color.WHITE);
-        graphics.fillRect(0, 0, Main.SCREEN_WIDTH * bgm.time() / bgm.length(), 3);
+        graphics.fillRect(0, 0, Main.getWidth() * bgm.time() / bgm.length(), 3);
         graphics.setColor(Color.BLACK);
-        graphics.fillRect(0, 3, Main.SCREEN_WIDTH * bgm.time() / bgm.length(), 1);
+        graphics.fillRect(0, 3, Main.getWidth() * bgm.time() / bgm.length(), 1);
 
         effects.apply(image);
 

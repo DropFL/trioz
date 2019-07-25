@@ -86,7 +86,7 @@ public abstract class Activity
 
     protected final void createImage()
     {
-        image = config.createCompatibleVolatileImage(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
+        image = config.createCompatibleVolatileImage(Main.getWidth(), Main.getHeight());
     }
 
     protected final void updateImage()

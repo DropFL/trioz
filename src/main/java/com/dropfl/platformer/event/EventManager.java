@@ -661,7 +661,7 @@ public class EventManager {
         addEvent(new ScreenEffectEvent(getTickByBeat(68) - 24, 24, (Integer integer) -> {
             Double[] res = {(1 - Math.cos(integer * Math.PI / 48)) * 50};
             return res;
-        }, effects, new JitterEffect(0, 0, Main.SCREEN_HEIGHT, JitterEffect.HORIZONTAL), ScreenEffectIterator.AT_LAST));
+        }, effects, new JitterEffect(0, 0, Main.getHeight(), JitterEffect.HORIZONTAL), ScreenEffectIterator.AT_LAST));
         addEvent(new ScreenEffectEvent(getTickByBeat(68), 24, (Integer integer) -> {
             Double[] res = {1.05 - 0.05 * Math.sin(integer * Math.PI / 48)};
             return res;
@@ -815,7 +815,7 @@ public class EventManager {
         addEvent(new ScreenEffectEvent(getTickByBeat(127), 28, (Integer integer) -> {
             Double[] res = {integer * 2.};
             return res;
-        }, effects, new JitterEffect(0, 0, Main.SCREEN_HEIGHT, JitterEffect.HORIZONTAL), ScreenEffectIterator.AT_LAST));
+        }, effects, new JitterEffect(0, 0, Main.getHeight(), JitterEffect.HORIZONTAL), ScreenEffectIterator.AT_LAST));
         addEvent(new ScreenEffectEvent(getTickByBeat(127), 6, (Integer integer) -> {
             Double[] res = {1.02 - 0.02 * Math.sin(integer * Math.PI / 12)};
             return res;
@@ -837,7 +837,7 @@ public class EventManager {
             Double[] res = {0., 0., 0., 0.5};
             return res;
         },
-                effects, new ImageOverlayEffect(0, 0, ImageResource.LIGHT_OFF.getImageIcon(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT).getImage()), ScreenEffectIterator.AT_FIRST));
+                effects, new ImageOverlayEffect(0, 0, ImageResource.LIGHT_OFF.getImageIcon(Main.getWidth(), Main.getHeight()).getImage()), ScreenEffectIterator.AT_FIRST));
         addEvent(new SpeedEvent(getTickByBeat(128), getTickByBeat(132) - getTickByBeat(128), (Integer integer) -> {
             Double[] res = {0.};
             return res;

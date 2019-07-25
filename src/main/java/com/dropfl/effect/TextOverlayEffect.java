@@ -80,7 +80,7 @@ public class TextOverlayEffect extends ScreenEffect
 
         Graphics2D g = (Graphics2D) image.getGraphics();
 
-        g.setRenderingHints(Main.getRenderingHint());
+        g.setRenderingHints(Main.getRenderingHints());
         g.setColor(color);
         g.setFont(font);
 

@@ -62,7 +62,6 @@ public final class MainActivity extends Activity
     @Override
     public VolatileImage getScreen()
     {
-
         if (KeyStatus.isKeyJustPressed(Key.ESCAPE))
         {
             KeyStatus.setKeyProcessed(Key.ESCAPE);
@@ -71,7 +70,7 @@ public final class MainActivity extends Activity
         }
 
         updateImage();
-        graphics.setRenderingHints(Main.getRenderingHint());
+        graphics.setRenderingHints(Main.getRenderingHints());
 
         int time = bgm.time();
         int curBeat = prevBeat;
@@ -96,8 +95,8 @@ public final class MainActivity extends Activity
         bgm.play();
         createImage();
 
-        addButton(start_btn, Main.SCREEN_WIDTH / 2 + 275, Main.SCREEN_HEIGHT / 2 - 65, 226, 68, start_adapter);
-        addButton(exit_btn, Main.SCREEN_WIDTH / 2 + 275, Main.SCREEN_HEIGHT / 2 + 110, 226, 68, exit_adapter);
+        addButton(start_btn, Main.getWidth() / 2 + 275, Main.getHeight() / 2 - 65, 226, 68, start_adapter);
+        addButton(exit_btn, Main.getWidth() / 2 + 275, Main.getHeight() / 2 + 110, 226, 68, exit_adapter);
     }
 
     @Override

@@ -35,13 +35,13 @@ public class PixelateEffect extends ScreenEffect
         graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
         graphics.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
 
-        graphics.drawImage(image, 0, 0, Main.SCREEN_WIDTH / size, Main.SCREEN_HEIGHT / size, null);
+        graphics.drawImage(image, 0, 0, Main.getWidth() / size, Main.getHeight() / size, null);
         graphics.dispose();
 
         Graphics2D g = (Graphics2D) image.getGraphics();
 
-        g.drawImage(ScreenEffect.image, 0, 0, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT, 0, 0, Main.SCREEN_WIDTH / size,
-                Main.SCREEN_HEIGHT / size, null);
+        g.drawImage(ScreenEffect.image, 0, 0, Main.getWidth(), Main.getHeight(), 0, 0, Main.getWidth() / size,
+                Main.getHeight() / size, null);
         g.dispose();
     }
 

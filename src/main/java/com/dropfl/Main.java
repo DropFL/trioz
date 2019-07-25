@@ -1,29 +1,38 @@
 package com.dropfl;
 
-import com.dropfl.init.RenderingHintInitializer;
+import com.dropfl.config.*;
+import com.dropfl.util.Resolution;
 import com.dropfl.key.KeyStatus;
-import res.FontResource;
 
 import java.awt.*;
 
 public class Main
 {
     // global constants goes here
-    public static final int SCREEN_WIDTH = 1280;
-    public static final int SCREEN_HEIGHT = 720;
-    private static RenderingHints RENDERING_HINT;
+    public static int SCREEN_WIDTH = 1280;
+    public static int SCREEN_HEIGHT = 720;
+    private static final Resolution RESOLUTION = new Resolution();
+    private static RenderingHints RENDERING_HINT = new RenderingHints(null);
+    private static Initializer reInit;
 
     public static void main(String[] args)
     {
         // Hardware Acceleration
         System.setProperty("sun.java2d.opengl", "true");
 
-        // Load Rendering Setting
-        RENDERING_HINT = RenderingHintInitializer.loadRenderingHints();
+        // Chain Initializers
+        reInit = new ResolutionInitializer(RESOLUTION)
+                .append(new TextAAInitializer(RENDERING_HINT))
+                .append(new InterpolationInitializer(RENDERING_HINT))
+                .append(new AntiAliasInitializer(RENDERING_HINT))
+                .append(new RenderInitializer(RENDERING_HINT));
+        
+        Initializer init = new FontInitializer()
+                            .append(new KeyStatusInitializer())
+                            .append(reInit);
 
-        // Initialize
-        FontResource.registerFonts();
-        KeyStatus.init();
+        Configurations.initalize("config.yml");
+        init.start();
 
         // Create a JFrame
         GameFrame frame = new GameFrame();
@@ -32,8 +41,23 @@ public class Main
         KeyStatus.register(frame);
     }
 
-    public static RenderingHints getRenderingHint()
+    public static int getWidth()
+    {
+        return RESOLUTION.getWidth();
+    }
+
+    public static int getHeight()
+    {
+        return RESOLUTION.getHeight();
+    }
+
+    public static RenderingHints getRenderingHints()
     {
         return RENDERING_HINT;
+    }
+
+    public static void reInitialize ()
+    {
+        reInit.start();
     }
 }
