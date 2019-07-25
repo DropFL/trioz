@@ -49,9 +49,7 @@
 
 ### 2.1 Configurations, Config
 
-게임의 설정을 담고 있는 클래스/객체이다. `Configurations`는 `static` 메서드로만 접근이 가능하며, 내부적으로는 `String -> Config` 형태의 `Map`으로 구성되어 있다. `Config`는 특정 설정[^1]에 대해 다음과 같은 속성을 정의하고 있다.
-
-[^1]: 해당 `Config`에 매핑된 `String` 형태의 키로 표현된다.
+게임의 설정을 담고 있는 클래스/객체이다. `Configurations`는 `static` 메서드로만 접근이 가능하며, 내부적으로는 `String -> Config` 형태의 `Map`으로 구성되어 있다. `Config`는 특정 설정¹에 대해 다음과 같은 속성을 정의하고 있다.
 
 1. **`allowed`**: 해당 설정이 가질 수 있는 값의 목록
 2. **`defaultValue`**: 해당 설정에 대한 기본값
@@ -59,16 +57,18 @@
 
 즉, `defaultValue`와 `value`는 `allowed`의 원소여야 한다. 특히 `defaultValue`는 **반드시** 그래야 하는데, `value`가 존재하지 않거나 허용되지 않은 값을 갖는 경우 `defaultValue`로 덮어씌우기 때문이다.
 
+<sub>¹ 해당 `Config`에 매핑된 `String` 형태의 키로 표현된다.</sub>
+
 ### 2.2 Initializer
 
-초기화를 담당하는 객체이다. `Configurations`에서 설정을 불러온 뒤, 해당 설정을 참조하여[^2] 실제로 게임에 영향을 주는 객체이다. 이 객체는 단일 연결그래프의 형태를 가지며, 초기화 작업은 이를 따라 연쇄적으로 일어난다. 이와 같은 구조는 다음의 이점은 갖는다.
+초기화를 담당하는 객체이다. `Configurations`에서 설정을 불러온 뒤, 해당 설정을 참조하여² 실제로 게임에 영향을 주는 객체이다. 이 객체는 단일 연결그래프의 형태를 가지며, 초기화 작업은 이를 따라 연쇄적으로 일어난다. 이와 같은 구조는 다음의 이점은 갖는다.
 
 * **순서를 정할 수 있다.** 현재 버전에서 해당되는 사항은 없으나, 만약 초기화의 순서가 중요시되는 경우 재배치하기 쉽다.
 * **`Initializer`를 재사용할 수 있다.** 초기화 프로세스 중에는 설정이 변경되면 다시 실시되어야 하는 것과, 오로지 처음에만 일어나야 하는 것이 있다. 이 때 전자에 해당되는 `Initializer`에 대한 참조를 보존하면 간단히 해결할 수 있다.
 
 현재는 `Initializer` 클래스가 직접 이 과정을 구현하고 있으나, 향후 편의성을 위해 `LinkedList`나 `Iterator`에게 위임하는 것을 고려하고 있다.
 
-[^2]: 필수는 아니다. `FontInitializer`나 `KeyStatusInitializer`의 경우 `Configurations`를 참조하지 않는다.
+<sub>² 필수는 아니다. `FontInitializer`나 `KeyStatusInitializer`의 경우 `Configurations`를 참조하지 않는다.</sub>
 
 ### 2.3 Main
 
